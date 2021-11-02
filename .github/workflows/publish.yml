@@ -33,4 +33,5 @@ jobs:
           action: "upload"
           ###### Repository/Build Configurations ######
           app_location: "src" # App source code path
+          app_artifact_location: "dist"
           ###### End of Repository/Build Configurations ######
