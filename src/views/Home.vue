@@ -54,8 +54,29 @@
       
     </v-toolbar>
   </div>
-    
-    <v-col class="pt-15">
+  <v-carousel v-model="model">
+    <v-carousel-item
+      v-for="(color, i) in colors"
+      :key="color"
+    >
+      <v-sheet
+        :color="color"
+        height="100%"
+        title
+      >
+        <v-row
+          class="fill=height"
+          align="center"
+          justify="center"
+        >
+         <div class="text-h2">
+           Slide {{ i + 1 }}
+         </div>
+        </v-row>
+      </v-sheet>
+    </v-carousel-item>
+  </v-carousel>        
+   <v-col class="pt-15">
       <v-row class="mt-4 mb-4">
         <v-col cols="4">
           <v-card class="mt-4 mb-4" height="300" shaped elevation="4">
@@ -82,5 +103,20 @@ import Vue from "vue";
 import { mapActions } from "vuex";
 export default Vue.extend({});
 </script>
+<script>
+export default {
+    data: () => ({
+      model: 0,
+      colors: [
+        'primary',
+        'secondary',
+        'yellow darken-2',
+        'red',
+        'orange',
+      ],
+    }), 
+  }
+</script>
+
 
 <style></style>
