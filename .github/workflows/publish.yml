@@ -14,16 +14,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Use Node.js ${{ env.NODE_VERSION }}
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-      - name: npm install, build, and test
-        run: |
-          # Build and test the project, then
-          # deploy to Azure Web App.
-          npm install
-          npm run build --if-present
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
@@ -32,6 +22,5 @@ jobs:
           repo_token: ${{ secrets.GITHUB_TOKEN }} # Used for Github integrations (i.e. PR comments)
           action: "upload"
           ###### Repository/Build Configurations ######
-          app_location: "src" # App source code path
-          app_artifact_location: "dist"
+          app_location: "/" # App source code path
           ###### End of Repository/Build Configurations ######
