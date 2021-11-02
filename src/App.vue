@@ -1,17 +1,16 @@
 <template>
   <v-app :style="cssProps">
-
     <v-main>
-      <router-view/>
+      <router-view />
     </v-main>
   </v-app>
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
+import Vue from "vue";
 
 export default Vue.extend({
-  name: 'App',
+  name: "App",
 
   data() {
     return {
