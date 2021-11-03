@@ -22,7 +22,7 @@ const routes: Array<RouteConfig> = [
     path: '/searchresults',
     name: 'Search Results',
     component: () => import('../views/SearchResults.vue')
-  }
+  },
 ]
 
 const router = new VueRouter({
