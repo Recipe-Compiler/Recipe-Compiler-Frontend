@@ -22,6 +22,11 @@ const routes: Array<RouteConfig> = [
     path: '/searchresults',
     name: 'Search Results',
     component: () => import('../views/SearchResults.vue')
+  },
+  {
+    path: '/saved',
+    name: 'Saved Recipes',
+    component: () => import('../views/SavedRecipes.vue')
   }
 ]
 
