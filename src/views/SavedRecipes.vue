@@ -67,7 +67,7 @@
         <v-btn
             color="red"
             text
-            @click="Unsave"
+            @click="unsaveRecipe"
         >
             Unsave
         </v-btn>
@@ -113,7 +113,7 @@
         <v-btn
             color="red"
             text
-            @click="Unsave"
+            @click="unsaveRecipe"
         >
             Unsave
         </v-btn>
@@ -161,7 +161,7 @@
         <v-btn
             color="red"
             text
-            @click="Unsave"
+            @click="unsaveRecipe"
         >
             Unsave
         </v-btn>
@@ -207,7 +207,7 @@
         <v-btn
             color="red"
             text
-            @click="Unsave"
+            @click="unsaveRecipe"
         >
             Unsave
         </v-btn>
@@ -255,7 +255,7 @@
         <v-btn
             color="red"
             text
-            @click="Unsave"
+            @click="unsaveRecipe"
         >
             Unsave
         </v-btn>
@@ -301,7 +301,7 @@
         <v-btn
             color="red"
             text
-            @click="Unsave"
+            @click="unsaveRecipe"
         >
             Unsave
         </v-btn>
@@ -310,7 +310,13 @@
     </v-col>
     
     <v-row align="center" justify="center">
-      <v-btn>Load More Saved Recipes</v-btn>
+      <v-btn
+        color="secondary"
+        elevation="2"
+        @click="loadMore"
+      >
+        Load More Saved Recipes
+      </v-btn>
     </v-row>
     
     </v-row> 
