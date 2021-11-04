@@ -41,9 +41,28 @@
           <v-icon>mdi-bookmark</v-icon>
         </v-btn>
         <v-spacer></v-spacer>
-        <v-btn icon>
-          <v-icon>mdi-account</v-icon>
-        </v-btn>
+        <v-dialog
+          transition="dialog-bottom-transition"
+          max-width="600"
+        >
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn icon v-bind="attrs" v-on="on">
+              <v-icon>mdi-account</v-icon>
+            </v-btn>
+          </template>
+          <template v-slot:default="dialog">
+            <v-card>
+              <v-toolbar color = "#fd6359">Login</v-toolbar>
+              <v-card-text>
+                <v-text-field label = "Username"></v-text-field>
+                <v-text-field label = "Password">Password</v-text-field>
+              </v-card-text>
+              <v-card-cations class="justify-end">
+                <v-btn text @click="dialog.value = false">Login</v-btn>
+              </v-card-cations>
+            </v-card>
+          </template>
+        </v-dialog> 
       </v-toolbar>
     </div>
 
@@ -217,3 +236,5 @@ export default {
 };
 </script>  ss
 <style></style>
+
+
