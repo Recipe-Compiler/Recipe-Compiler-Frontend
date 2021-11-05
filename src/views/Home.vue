@@ -66,20 +66,7 @@
       </v-toolbar>
     </div>
 
-    <v-carousel
-      cycle
-      show-arrows-on-hover
-      hide-delimiter-background
-      height="1250px"
-    >
-      <v-carousel-item
-        v-for="(item, i) in Recipes"
-        :key="i"
-        :src="item.imageUrl"
-        reverse-transition="fade-transition"
-        transition="fade-transition"
-      ></v-carousel-item>
-    </v-carousel>
+    <RecipeCarousel :recipes="Recipes" />
 
     <v-col class="pt-15">
       <v-row class="mt-4 mb-4">
@@ -98,6 +85,7 @@
 import Vue from "vue";
 //import { mapActions } from "vuex";
 import RecipeHoverCard from "../components/RecipeHoverCard.vue";
+import RecipeCarousel from "../components/RecipeCarousel.vue";
 //import Login from "../components/Login.vue";
 //import Create from "../components/Create.vue";
 export default Vue.extend({
@@ -135,6 +123,7 @@ export default Vue.extend({
   },
   components: {
     RecipeHoverCard,
+    RecipeCarousel,
   },
   methods: {
     login(dialog: any) {
