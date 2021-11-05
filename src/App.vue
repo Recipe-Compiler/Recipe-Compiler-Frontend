@@ -17,7 +17,20 @@ export default Vue.extend({
       cssProps: {
         backgroundImage: `url(${require("@/assets/background.svg")})`,
       },
+      user: null,
     };
+  },
+  mounted() {
+    this.user = this.getUser();
+  },
+  methods: {
+    getUser() {
+      if (localStorage.user) {
+        return JSON.parse(localStorage.user);
+      } else {
+        return {};
+      }
+    },
   },
 });
 </script>
