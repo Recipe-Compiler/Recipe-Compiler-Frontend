@@ -23,6 +23,11 @@ const routes: Array<RouteConfig> = [
     name: 'Search Results',
     component: () => import('../views/SearchResults.vue')
   },
+  {
+    path: '/accountDetails',
+    name: 'Account Details',
+    component: () => import ('../views/Account.vue')
+  },
 ]
 
 const router = new VueRouter({
