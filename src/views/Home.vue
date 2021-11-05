@@ -258,7 +258,7 @@ export default Vue.extend({
           password: this.password,
         }),
       };
-      return fetch(process.env.API_BASE + "User/login", requestOptions)
+      return fetch(process.env.VUE_APP_API + "User/login", requestOptions)
         .then(this.handleResponse)
         .then((user: any) => {
           
@@ -281,7 +281,7 @@ export default Vue.extend({
           email: this.email,
         }),
       };
-      return fetch(process.env.API_BASE + "User/register", requestOptions)
+      return fetch(process.env.VUE_APP_API + "User/register", requestOptions)
         .then(this.handleResponse)
         .then((user: any) => {
           if (user.token) {
