@@ -21,7 +21,7 @@
 <script lang="ts">
 import Vue from "vue";
 import { mapActions } from "vuex";
-import { api } from "@/App.vue";
+// import { api } from "@/App.vue";
 export default Vue.extend({
   data() {
     return {
@@ -42,14 +42,14 @@ export default Vue.extend({
     },
     getSearchResults() {
       // API call for getting items that match the search
-      api
-        .get(/* API CALL */)
+      /*api
+        .get(/* API CALL )
         .then((response: any) => {
           this.results = response.data;
         })
         .catch((error) => {
           console.log(error);
-        });
+        });*/
     },
   },
 });
