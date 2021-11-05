@@ -1,27 +1,5 @@
 <template>
   <v-form>
-    <!-- <v-bottom-navigation color="white" style="background-color: #fd6359" grow height="50px" width="3000px"> 
-      <v-btn style="text-color: white; background-color: #fd6359" height="50px">
-        <span>Home</span>
-        <v-icon>mdi-home</v-icon>
-      </v-btn>
-      <v-btn style="text-color: white; background-color: #fd6359" height="50px">
-        <span>Explore</span>
-        <v-icon>mdi-earth</v-icon>
-      </v-btn>
-      <v-btn style="text-color: white; background-color: #fd6359" height="50px">
-        <span>Search</span>
-        <v-icon>mdi-magnify</v-icon>
-      </v-btn>
-      <v-btn style="text-color: white; background-color: #fd6359" height="50px">
-        <span>Meal Prep</span>
-        <v-icon>mdi-food</v-icon>
-      </v-btn>
-      <v-btn style="text-color: white; background-color: #fd6359" height="50px">
-        <span>Bookmarks</span>
-        <v-icon>mdi-bookmark</v-icon>
-      </v-btn>
-    </v-bottom-navigation>-->
     <div>
       <v-toolbar dark dense src="https://i.imgur.com/x6hfLlY.png">
         
@@ -90,7 +68,7 @@
               </v-card-actions> 
             </v-card>
           </template>
-        </v-dialog>
+        </v-dialog> 
       </v-toolbar>
     </div>
 
@@ -111,127 +89,8 @@
 
     <v-col class="pt-15">
       <v-row class="mt-4 mb-4">
-        <v-col cols="3">
-          <v-hover>
-            <template v-slot:default="{ hover }">
-              <v-card class="mx-auto" max-width="344" height="500">
-                <v-card-text>
-                  <h2 class="text-h6 primary--text">Butternut Squash Bisque</h2>
-                  A Delicious fall soup that will fend off the coming cold!
-                </v-card-text>
 
-                <v-card-title>
-                  <v-rating
-                    :value="4"
-                    dense
-                    color="orange"
-                    background-color="orange"
-                    hover
-                    class="mr-2"
-                  ></v-rating>
-                  <span class="primary--text text-subtitle-2">64 Reviews</span>
-                </v-card-title>
-
-                <v-fade-transition>
-                  <v-overlay v-if="hover" absolute color="#036358">
-                    <v-btn>See more info</v-btn>
-                  </v-overlay>
-                </v-fade-transition>
-              </v-card>
-            </template>
-          </v-hover>
-        </v-col>
-        <v-col cols="3">
-          <v-hover>
-            <template v-slot:default="{ hover }">
-              <v-card class="mx-auto" max-width="344" height="500">
-                <v-card-text>
-                  <h2 class="text-h6 primary--text">Pumkin Pie</h2>
-                  A Delicious fall treat that pairs well with whipped cream or
-                  vanilla ice cream!
-                </v-card-text>
-
-                <v-card-title>
-                  <v-rating
-                    :value="4"
-                    dense
-                    color="orange"
-                    background-color="orange"
-                    hover
-                    class="mr-2"
-                  ></v-rating>
-                  <span class="primary--text text-subtitle-2">64 Reviews</span>
-                </v-card-title>
-
-                <v-fade-transition>
-                  <v-overlay v-if="hover" absolute color="#036358">
-                    <v-btn>See more info</v-btn>
-                  </v-overlay>
-                </v-fade-transition>
-              </v-card>
-            </template>
-          </v-hover>
-        </v-col>
-        <v-col cols="3">
-          <v-hover>
-            <template v-slot:default="{ hover }">
-              <v-card class="mx-auto" max-width="344" height="500">
-                <v-card-text>
-                  <h2 class="text-h6 primary--text">Pesto Pasta</h2>
-                  A simple, comforting pasta dish for fall lovers!
-                </v-card-text>
-
-                <v-card-title>
-                  <v-rating
-                    :value="4"
-                    dense
-                    color="orange"
-                    background-color="orange"
-                    hover
-                    class="mr-2"
-                  ></v-rating>
-                  <span class="primary--text text-subtitle-2">64 Reviews</span>
-                </v-card-title>
-
-                <v-fade-transition>
-                  <v-overlay v-if="hover" absolute color="#036358">
-                    <v-btn>See more info</v-btn>
-                  </v-overlay>
-                </v-fade-transition>
-              </v-card>
-            </template>
-          </v-hover>
-        </v-col>
-        <v-col cols="3">
-          <v-hover>
-            <template v-slot:default="{ hover }">
-              <v-card class="mx-auto" max-width="344" height="500">
-                <v-card-text>
-                  <h2 class="text-h6 primary--text">Braised Short Ribs</h2>
-                  A Hearty stew that can be made in any situation!
-                </v-card-text>
-
-                <v-card-title>
-                  <v-rating
-                    :value="4"
-                    dense
-                    color="orange"
-                    background-color="orange"
-                    hover
-                    class="mr-2"
-                  ></v-rating>
-                  <span class="primary--text text-subtitle-2">64 Reviews</span>
-                </v-card-title>
-
-                <v-fade-transition>
-                  <v-overlay v-if="hover" absolute color="#036358">
-                    <v-btn>See more info</v-btn>
-                  </v-overlay>
-                </v-fade-transition>
-              </v-card>
-            </template>
-          </v-hover>
-        </v-col>
+      <RecipeHoverCard v-for="(recipe, i) in Recipes" :key="i" :recipe="recipe">  </RecipeHoverCard>
       </v-row>
     </v-col>
   </v-form>
@@ -239,11 +98,14 @@
 
 <script lang="ts">
 import Vue from "vue";
-import { mapActions } from "vuex";
+//import { mapActions } from "vuex";
+import RecipeHoverCard from "../components/RecipeHoverCard.vue";
+import Login from "../components/Login.vue";
+//import Create from "../components/Create.vue";
 export default Vue.extend({
   data() {
     return {
-      Recipes: [],
+      Recipes: [], 
       items: [
         {
           src: "https://i2.wp.com/www.downshiftology.com/wp-content/uploads/2018/11/Roasted-Butternut-Squash-Soup-1-2.jpg",
@@ -272,6 +134,9 @@ export default Vue.extend({
   },
   mounted(){
     this.GetAllRecipes();
+  },
+  components: {
+    RecipeHoverCard,
   },
   methods: {
 
@@ -314,6 +179,7 @@ export default Vue.extend({
             dialog.value = false;
             this.username = "";
             this.password = "";
+            this.email = "";
             localStorage.setItem("user", JSON.stringify(user));
           }
         });
@@ -332,7 +198,7 @@ export default Vue.extend({
         return data;
       });
     },
-    GetAllRecipes(dialog: any) {
+    GetAllRecipes() {
       const requestOptions = {
         method: "GET",
         headers: { "Content-Type": "application/json" },
@@ -342,7 +208,8 @@ export default Vue.extend({
         .then(this.handleResponse)
         .then((recipe: any) => {
         console.log(recipe)
-        this.Recipes = recipe.splice(3, recipe.length - 4); 
+        this.Recipes = recipe
+        this.Recipes.splice(0, this.Recipes.length - 4)
         
         });
     },
