@@ -1,6 +1,15 @@
 <template>
   <v-form>
-    <v-btn @click="routeLogin"> login </v-btn>
+    <v-row>
+      <v-col cols="4">
+       </v-col>
+      <v-col cols="4" align="center">
+        <v-btn  @click="routeLogin"> login </v-btn> 
+      </v-col>
+      <v-col cols ="4"></v-col>
+    </v-row>
+   
+    
     <RecipeCarousel :recipes="Recipes" />
     <v-col class="pt-15">
       <v-row class="mt-4 mb-4">
@@ -136,7 +145,7 @@ export default Vue.extend({
     },
 
     routeLogin() {
-      this.$router.push("Login");
+      this.$router.push("Login"); 
     },
   },
 });
