@@ -1,112 +1,77 @@
-<template>
-  <v-form>
-    <v-bottom-navigation color="white" style="background-color: #fd6359" grow>
-      <v-btn style="text-color: white">
-        <span>Home</span>
-        <v-icon>mdi-home</v-icon>
-      </v-btn>
-      <v-btn style="text-color: white">
-        <span>Explore</span>
-        <v-icon>mdi-earth</v-icon>
-      </v-btn>
-      <v-btn style="text-color: white">
-        <span>Search</span>
-        <v-icon>mdi-magnify</v-icon>
-      </v-btn>
-      <v-btn style="text-color: white">
-        <span>Meal Prep</span>
-        <v-icon>mdi-food</v-icon>
-      </v-btn>
-      <v-btn style="text-color: white">
-        <span>Bookmarks</span>
-        <v-icon>mdi-bookmark</v-icon>
-      </v-btn>
-    </v-bottom-navigation>
 
-    <v-col class="pt-15">
-      <h1 align="center" style="color: #7d312c">
-        Welcome to The Recipe Compiler!
-      </h1>
-      <h3 align="center" style="color: #7d312c">
-        Please enter your login credentials.
-      </h3>
-      <v-card class="px-7 py-7 mr-5" shaped>
-        <v-text-field
-          v-model="username"
-          label="Username"
-          required
-          :rules="[rules.required]"
-          outlined
-          class="mt-2"
-        ></v-text-field>
-        <v-text-field
-          v-model="password"
-          label="Password"
-          required
-          :rules="[rules.required, rules.min, rules.numbers, rules.nonalphanum]"
-          outlined
-          class="mt-2"
-        ></v-text-field>
-        <v-btn color="red" align="center">Login</v-btn>
-      </v-card>
+<template>  
+  <v-card>
+    <v-toolbar color="#fd6359">Login</v-toolbar>
+    <v-card-text>
+      <v-text-field
+        label="Username"
+        v-model="username"
+        :rules="[rules.required]"
+        required
+      ></v-text-field>
+      <v-text-field
+        label="Password"
+        v-model="password"
+        :rules="[rules.required]"
+        required
+      ></v-text-field>
+    </v-card-text>
 
-      <v-row justify="center" class="mb-4 mt-4 mr-4 ml-4">
-        <v-col cols="4"></v-col>
-        <v-col cols="2">
-          <span style="color: #7d312c">Clicked the wrong button?</span>
-        </v-col>
-        <v-col cols="1">
-          <v-btn color="red" :center="true" :absolute="true"
-            >create Account</v-btn
-          >
-        </v-col>
-        <v-col cols="5"></v-col>
-      </v-row>
-    </v-col>
-  </v-form>
+    <v-card-actions class="justify-end">
+      <v-btn text left @click="render_create = true">Create Account</v-btn>
+      <div v-if="render_create === true">
+        <Create />
+      </div>
+      <v-btn text @click="login(dialog)">Login</v-btn>
+    </v-card-actions>
+  </v-card>
 </template>
-
 <script lang="ts">
 import Vue from "vue";
 import { mapActions } from "vuex";
 export default Vue.extend({
+  props: {
+    dialog: Object
+  },
   data() {
     return {
       username: "",
       password: "",
+      render_create: false,
       rules: {
-        required: (value: any) => !!value || "Required.",
-        min: (v: any) => v.length >= 8 || "Min 8 characters",
-        numbers: (v: any) => /\d/.test(v) || "At least one number required",
-        nonalphanum: (v: any) =>
-          /^a-zA-Z0-9/.test(v) || "At least one nonalphanumeric",
+        required: (v: any) => !!v || "Required.",
       },
     };
   },
   methods: {
-    login() {
+
+    login(dialog: any) {
       const requestOptions = {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          username: this.username,
+          userName: this.username,
           password: this.password,
         }),
       };
-      return fetch("http://localhost:5001/users/login", requestOptions)
+      return fetch(process.env.VUE_APP_API + "User/login", requestOptions)
         .then(this.handleResponse)
         .then((user: any) => {
-          if (user.jwtToken) {
+          if (user.token) {
+            dialog.value = false;
+            console.log(user);
             this.username = "";
             this.password = "";
             localStorage.setItem("user", JSON.stringify(user));
-            // this.$router.push("dashboard");
+
           }
         });
     },
     handleResponse(response: any) {
       return response.text().then((text: any) => {
         const data = text && JSON.parse(text);
+
+
         if (!response.ok) {
           if (response.status === 401) {
             // Unauthorized request
@@ -119,6 +84,3 @@ export default Vue.extend({
     },
   },
 });
-</script>
-
-<style></style>
