@@ -27,6 +27,11 @@ const routes: Array<RouteConfig> = [
     path: '/saved',
     name: 'Saved Recipes',
     component: () => import('../views/SavedRecipes.vue')
+  },
+  {
+    path: '/Explore',
+    name: 'Explore',
+    component: () => import('../views/Explore.vue')
   }
 ]
 

@@ -1,96 +1,84 @@
-<template>
-  <v-form>
-      <v-bottom-navigation 
-      color="white" 
-      style="background-color:#FD6359" 
-      grow>
-        <v-btn style="text-color:white">
-            <span>Home</span>
-            <v-icon>mdi-home</v-icon>
-        </v-btn>
-        <v-btn style="text-color:white">
-            <span>Explore</span>
-            <v-icon>mdi-earth</v-icon>
-        </v-btn>
-        <v-btn style="text-color:white">
-            <span>Search</span>
-            <v-icon>mdi-magnify</v-icon>
-        </v-btn>
-        <v-btn style="text-color:white">
-            <span>Meal Prep</span>
-            <v-icon>mdi-food</v-icon>
-        </v-btn>
-        <v-btn style="text-color:white">
-            <span>Bookmarks</span>
-            <v-icon>mdi-bookmark</v-icon>
-        </v-btn>
-    </v-bottom-navigation>
-    
-      <v-col class="pt-15">
-        <h1 align="center" style="color:#7D312C">Welcome to The Recipe Compiler!</h1>
-        <h3 align="center" style="color:#7D312C">Please enter your login credentials.</h3>
-        <v-card class="px-7 py-7 mr-5" shaped>
-            <v-text-field
-                v-model="username"
-                label="Email"
-                required
-                :rules="[rules.required]"
-                outlined
-                class="mt-2"
-            ></v-text-field>
-            <v-text-field
-                v-model="username"
-                label="First Name"
-                required
-                :rules="[rules.required]"
-                outlined
-                class="mt-2"
-            ></v-text-field>
-            <v-text-field
-                v-model="username"
-                label="Last Name"
-                required
-                :rules="[rules.required]"
-                outlined
-                class="mt-2"
-            ></v-text-field>
-            <v-text-field
-                v-model="password"
-                label="Password"
-                required
-                :rules="[rules.required]"
-                outlined
-                class="mt-2"
-            ></v-text-field>
-            <v-text-field
-                v-model="password"
-                label="Confirm Password"
-                required
-                :rules="[rules.required]"
-                outlined
-                class="mt-2"
-            ></v-text-field>
-            <v-btn color="red" align="center">Create Account</v-btn> 
-        </v-card>
+<template v-slot:default="dialog">
+  <v-card>
+    <v-toolbar color="#fd6359">Create Account</v-toolbar>
+    <v-card-text>
+      <v-text-field
+        label="Username"
+        v-model="username"
+        required
+      ></v-text-field>
+      <v-text-field
+        label="Email"
+        v-model="email"
+        required
+      ></v-text-field>
+      <v-text-field
+        label="Password"
+        v-model="password"
+        required
+      ></v-text-field>
+    </v-card-text>
 
-        <v-row justify="center" class="mb-4 mt-4 mr-4 ml-4">
-            <v-col cols=4></v-col>
-            <v-col cols=2>
-                <span style="color:#7D312C">Clicked the wrong button?</span>
-            </v-col>
-            <v-col cols=1>
-            <v-btn color="red" :center="true" :absolute="true">Login</v-btn>
-            </v-col>
-            <v-col cols=5></v-col>
-        </v-row>
-    </v-col>
-  </v-form>
+    <v-card-actions class="justify-end">
+      <v-btn text left @click="render_login = true">Login</v-btn>
+      <div v-if="render_create === true">
+        <Login />
+      </div>
+      <v-btn text @click="register(dialog)">Register</v-btn>
+    </v-card-actions>
+  </v-card>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
 import { mapActions } from "vuex";
-export default Vue.extend({});
-</script>
+export default Vue.extend({
+  data() {
+    return {
 
-<style></style>
+      username: "",
+      password: "",
+      email: "",
+      render_login: false,
+    };
+  },
+  methods: {
+    register(dialog: any) {
+
+      const requestOptions = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          userName: this.username,
+          password: this.password,
+          email: this.email,
+        }),
+      };
+      return fetch(process.env.VUE_APP_API + "User/register", requestOptions)
+        .then(this.handleResponse)
+        .then((user: any) => {
+          if (user.token) {
+            dialog.value = false;
+            this.username = "";
+            this.password = "";
+            this.email = "";
+            localStorage.setItem("user", JSON.stringify(user));
+          }
+
+        });
+    },
+    handleResponse(response: any) {
+      return response.text().then((text: any) => {
+        const data = text && JSON.parse(text);
+        if (!response.ok) {
+          if (response.status === 401) {
+            // Unauthorized request
+          }
+          const error = (data && data.message) || response.statusText;
+          return Promise.reject(error);
+        }
+        return data;
+      });
+    },
+  },
+});
