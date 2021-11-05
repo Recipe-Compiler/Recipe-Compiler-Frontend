@@ -100,6 +100,20 @@ export default Vue.extend({
           // removes recipe from user's saved list
           return 0;
         },
+        handleResponse(response: any) {
+          return response.text().then((text: any) => {
+            const data = text && JSON.parse(text);
+
+            if (!response.ok) {
+              if (response.status === 401) {
+                // Unauthorized request
+              }
+              const error = (data && data.message) || response.statusText;
+              return Promise.reject(error);
+            }
+            return data;
+          });
+        },
         getSavedRecipes() {
           const requestOptions = {
             method: "GET",
