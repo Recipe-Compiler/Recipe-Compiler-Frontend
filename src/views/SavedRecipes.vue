@@ -37,16 +37,57 @@
     </v-row>
     <v-col class="pt-15">
         <v-row align="center" justify="center">
-        <v-data-table align="center" justify="center"
+          <v-snackbar v-model="snackbar">
+            {{ text }}
+            <template v-slot:action="{ attrs }">
+              <v-btn color="blue" text v-bind="attrs" @click="snackbar = false">
+                Close
+              </v-btn>
+            </template>
+          </v-snackbar>
+          <v-data-table align="center" justify="center"
             :headers="tableHeaders"
             :items="savedRecipes"
-            :items-per-page="5"
+            :page.sync="page"
+            :items-per-page="itemsPerPage"
             :search="search"
+            show-expand
+            item-key="name"
+            hide-default-footer
             class="elevation-1"
+            @page-count="pageCount = $event"
+            loading-text="Loading Your Delicious Recipes..."
+          >
+            <template v-slot:item.actions="{ item }">
+            <v-icon
+              small
+              @click="unsaveRecipe(item)"
             >
-            </v-data-table>
+              mdi-bookmark
+            </v-icon>
+          </template>
+          <template v-slot:expanded-item="{ headers, item }">
+            <td :colspan="headers.length">
+              More info about {{ item.name }}
+            </td>
+          </template>
+          </v-data-table>
         </v-row>
     </v-col>
+    <div class="text-center pt-2">
+      <v-pagination
+        v-model="page"
+        :length="pageCount"
+      ></v-pagination>
+      <v-text-field
+        :value="itemsPerPage"
+        label="Items per page"
+        type="number"
+        min="-1"
+        max="15"
+        @input="itemsPerPage = parseInt($event, 10)"
+      ></v-text-field>
+    </div>
   </v-col>
   </v-form>
 </template>
@@ -57,48 +98,90 @@ import { mapActions } from "vuex";
 export default Vue.extend({
     data() {
         return {
-            search: '',
+            snackbar: "",
+            text: "",
+            page: 1,
+            pageCount: 0,
+            itemsPerPage: 10,
+            dialog: false,
+            dialogDelete: false,
             tableHeaders: [
                 {
-                    text: "Recipes",
-                    align: "start",
-                    value: "name"
+                  text: "Recipes",
+                  align: "start",
+                  value: "name"
                 },
                 {
-                  text: "Image",
+                  text: "Tags",
                   align: "start",
-                  value: "imgUrl"
+                  value: "description"
                 },
-                // TODO: change this or append
+                {
+                  text: "Total Time",
+                  align: "start",
+                  value: "totalTimeMinutes"
+                },
                 {
                   text: "Recipe Page",
                   align: "start",
                   value: "recipeUrl"
+                },
+                {
+                  text: "Actions",
+                  value: 'actions',
+                  sortable: false
                 }
             ],
-            savedRecipes: [],
+            savedRecipes: [
+              {
+                name: "Matcha Cookies",
+                description: "Dessert, Easy",
+                totalTimeMinutes: "2 Hours 35 mins",
+                recipeUrl: "https://www.cooking-therapy.com/wp-content/uploads/2021/08/Matcha-Cookies-6.jpg"
+              },
+              {
+                name: "Homemade Shoyu Ramen",
+                description: "Ramen, Pork, Soup",
+                totalTimeMinutes: "6 Hours 30 mins",
+                recipeUrl: "https://www.justonecookbook.com/wp-content/uploads/2017/07/Spicy-Shoyu-Ramen-NEW-500x375.jpg"
+              },
+              {
+                name: "Classic Shrimp Scampi",
+                description: "Quick, Shrimp, Easy",
+                totalTimeMinutes: "15 mins",
+                recipeUrl: "https://www.lovebakesgoodcakes.com/wp-content/uploads/2013/06/Shrimp-Scampi-square.jpg"
+              },
+              {
+                name: "Coconut Cream Pie",
+                description: "Pie, Dessert",
+                totalTimeMinutes: "4 Hours 50 mins",
+                recipeUrl: "https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F44%2F2019%2F08%2F26232540%2F5177935.jpg&q=85"
+              },
+              {
+                name: "Spiced Carrot & Lentil Soup",
+                description: "Quick, Soup, Lentil",
+                totalTimeMinutes: "25 mins",
+                recipeUrl: "https://miro.medium.com/max/1400/1*YtnKAZ3HapFN_82nqHEeIw.jpeg"
+              },
+            ],
         }
     },
     mounted() {
         let user = JSON.parse(localStorage.user);
-        this.username = user.username;
         this.getSavedRecipes();
     },
     methods: {
         goHome() {
-            this.$router.push("Home");
+            this.$router.push("/");
         },
         setFilters() {
             // sets filters to display recipes
             return 0;
         },
-        viewRecipe() {
-          // route to the correct recipe page
-          return 0;
-        },
-        unsaveRecipe() {
+        unsaveRecipe(item) {
           // removes recipe from user's saved list
-          return 0;
+          this.snackbar = true;
+          this.text = "Recipe Unsaved";
         },
         handleResponse(response: any) {
           return response.text().then((text: any) => {
@@ -113,7 +196,7 @@ export default Vue.extend({
             return data;
           });
         },
-        // TODO: fetch API saved recipes (test other vers.)
+        // Gets saved recipes
         getSavedRecipes() {
           const requestOptions = {
             method: "GET",
