@@ -85,38 +85,25 @@
                   required
                 ></v-text-field>
               </v-card-text>
-<<<<<<< HEAD
-              <v-card-actions class="justify-end">
-                <v-btn text @click="dialog.value = false">Login</v-btn>
-              </v-card-actions>
-=======
-              <v-card-cations class="justify-end">
-                <v-btn text @click="login(dialog)"> Login </v-btn>
-              </v-card-cations>
->>>>>>> 747aeac595a77acc70fb0bc06d756075d3ad677e
+              <v-card-actions class="justify-end"> 
+                <v-btn text @click="login(dialog)">Login</v-btn>
+              </v-card-actions> 
             </v-card>
           </template>
         </v-dialog>
       </v-toolbar>
     </div>
-<<<<<<< HEAD
-    
-    <v-carousel cycle show-arrows-on-hover hide-delimiter-background height="1000px">
-      
-      
-=======
 
     <v-carousel
       cycle
       show-arrows-on-hover
       hide-delimiter-background
-      height="1000px"
+      height="1250px"
     >
->>>>>>> 747aeac595a77acc70fb0bc06d756075d3ad677e
       <v-carousel-item
-        v-for="(item, i) in items"
+        v-for="(item, i) in Recipes"
         :key="i"
-        :src="item.src"
+        :src="item.imageUrl"
         reverse-transition="fade-transition"
         transition="fade-transition"
       ></v-carousel-item>
@@ -256,6 +243,7 @@ import { mapActions } from "vuex";
 export default Vue.extend({
   data() {
     return {
+      Recipes: [],
       items: [
         {
           src: "https://i2.wp.com/www.downshiftology.com/wp-content/uploads/2018/11/Roasted-Butternut-Squash-Soup-1-2.jpg",
@@ -282,7 +270,11 @@ export default Vue.extend({
       },
     };
   },
+  mounted(){
+    this.GetAllRecipes();
+  },
   methods: {
+
     login(dialog: any) {
       const requestOptions = {
         method: "POST",
@@ -340,12 +332,27 @@ export default Vue.extend({
         return data;
       });
     },
+    GetAllRecipes(dialog: any) {
+      const requestOptions = {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+        
+      };
+      return fetch(process.env.VUE_APP_API + "Recipe/GetAll", requestOptions)
+        .then(this.handleResponse)
+        .then((recipe: any) => {
+        console.log(recipe)
+        this.Recipes = recipe.splice(3, recipe.length - 4); 
+        
+        });
+    },
+
     GoToSearch() {
       this.$router.push("SearchResults");
     },
   },
 });
-</script>  ss
+</script>  
 <style></style>
 
 
