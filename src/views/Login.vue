@@ -1,31 +1,45 @@
+<template>
+  <v-form>
+    <v-col class="pt-15">
+      <h1 align="center" style="color: #7d312c">
+        Please enter your login credentials.
+      </h1>
+      <v-card class="px-7 py-7 mr-5" shaped>
+        <v-text-field
+          v-model="username"
+          label="Username"
+          required
+          :rules="[rules.required]"
+          outlined
+          class="mt-2"
+        ></v-text-field>
+        <v-text-field
+          v-model="password"
+          label="Password"
+          required
+          :rules="[rules.required, rules.min, rules.numbers, rules.nonalphanum]"
+          outlined
+          class="mt-2"
+        ></v-text-field>
+        <v-btn color="red" align="center">Login</v-btn>
+      </v-card>
 
-<template>  
-  <v-card>
-    <v-toolbar color="#fd6359">Login</v-toolbar>
-    <v-card-text>
-      <v-text-field
-        label="Username"
-        v-model="username"
-        :rules="[rules.required]"
-        required
-      ></v-text-field>
-      <v-text-field
-        label="Password"
-        v-model="password"
-        :rules="[rules.required]"
-        required
-      ></v-text-field>
-    </v-card-text>
-
-    <v-card-actions class="justify-end">
-      <v-btn text left @click="render_create = true">Create Account</v-btn>
-      <div v-if="render_create === true">
-        <Create />
-      </div>
-      <v-btn text @click="login(dialog)">Login</v-btn>
-    </v-card-actions>
-  </v-card>
+      <v-row justify="center" class="mb-4 mt-4 mr-4 ml-4">
+        <v-col cols="4"></v-col>
+        <v-col cols="2">
+          <span style="color: #7d312c">Clicked the wrong button?</span>
+        </v-col>
+        <v-col cols="1">
+          <v-btn color="red" :center="true" :absolute="true"
+            >create Account</v-btn
+          >
+        </v-col>
+        <v-col cols="5"></v-col>
+      </v-row>
+    </v-col>
+  </v-form>
 </template>
+
 <script lang="ts">
 import Vue from "vue";
 import { mapActions } from "vuex";
