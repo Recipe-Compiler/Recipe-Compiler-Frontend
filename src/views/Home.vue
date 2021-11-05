@@ -31,7 +31,7 @@
         <v-btn icon>
           <v-icon>mdi-earth</v-icon>
         </v-btn>
-        <v-btn icon>
+        <v-btn @click="GoToSearch" icon>
           <v-icon>mdi-magnify</v-icon>
         </v-btn>
         <v-btn icon>
@@ -209,7 +209,7 @@
 <script lang="ts">
 import Vue from "vue";
 import { mapActions } from "vuex";
-export default Vue.extend({
+export default Vue.extend({ 
   data() {
     return {
       items: [
@@ -274,8 +274,11 @@ export default Vue.extend({
         }
         return data;
       });
-    }
-  }
+    },
+    GoToSearch(){
+      this.$router.push("SearchResults");
+    },
+  }, 
 });
 </script>  ss
 <style></style>
