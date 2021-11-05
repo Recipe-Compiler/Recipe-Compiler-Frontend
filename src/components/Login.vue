@@ -1,3 +1,4 @@
+
 <template>  
   <v-card>
     <v-toolbar color="#fd6359">Login</v-toolbar>
@@ -43,6 +44,7 @@ export default Vue.extend({
     };
   },
   methods: {
+
     login(dialog: any) {
       const requestOptions = {
         method: "POST",
@@ -61,12 +63,14 @@ export default Vue.extend({
             this.username = "";
             this.password = "";
             localStorage.setItem("user", JSON.stringify(user));
+
           }
         });
     },
     handleResponse(response: any) {
       return response.text().then((text: any) => {
         const data = text && JSON.parse(text);
+
 
         if (!response.ok) {
           if (response.status === 401) {

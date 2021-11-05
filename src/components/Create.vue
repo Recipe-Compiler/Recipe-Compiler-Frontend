@@ -35,6 +35,7 @@ import { mapActions } from "vuex";
 export default Vue.extend({
   data() {
     return {
+
       username: "",
       password: "",
       email: "",
@@ -43,6 +44,7 @@ export default Vue.extend({
   },
   methods: {
     register(dialog: any) {
+
       const requestOptions = {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -62,12 +64,12 @@ export default Vue.extend({
             this.email = "";
             localStorage.setItem("user", JSON.stringify(user));
           }
+
         });
     },
     handleResponse(response: any) {
       return response.text().then((text: any) => {
         const data = text && JSON.parse(text);
-
         if (!response.ok) {
           if (response.status === 401) {
             // Unauthorized request
