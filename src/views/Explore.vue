@@ -34,7 +34,7 @@
     <v-col class="pt-15">
       <v-row class="mt-4 mb-4">
         <v-col cols="4">
-          <!-- Edit navigation above  -->
+          <!-- Edit navigation above -->
 
           <v-snackbar v-model="snackbar">
             {{ text }}

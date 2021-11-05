@@ -6,7 +6,7 @@ Vue.use(VueRouter)
 
 const routes: Array<RouteConfig> = [
   {
-    path: '/',
+    path: '/Home',
     name: 'Home',
     component: Home
   },
@@ -22,6 +22,11 @@ const routes: Array<RouteConfig> = [
     path: '/searchresults',
     name: 'Search Results',
     component: () => import('../views/SearchResults.vue')
+  },
+  {
+    path: '/Explore',
+    name: 'Explore',
+    component: () => import('../views/Explore.vue')
   }
 ]
 
