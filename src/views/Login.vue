@@ -27,7 +27,11 @@
           <span style="color: #7d312c">Clicked the wrong button?</span>
         </v-col>
         <v-col cols="1">
-          <v-btn @click="routeCreate" color="red" :center="true" :absolute="true" 
+          <v-btn
+            @click="routeCreate"
+            color="red"
+            :center="true"
+            :absolute="true"
             >Create Account</v-btn
           >
         </v-col>
@@ -36,11 +40,10 @@
     </v-col>
   </v-form>
 </template>
-
 <script lang="ts">
 import Vue from "vue";
 export default Vue.extend({
-  data () {
+  data() {
     return {
       username: "",
       password: "",
@@ -90,3 +93,4 @@ export default Vue.extend({
     },
   },
 });
+</script>

@@ -20,7 +20,6 @@ import Vue from "vue";
 //import { mapActions } from "vuex";
 import RecipeHoverCard from "../components/RecipeHoverCard.vue";
 import RecipeCarousel from "../components/RecipeCarousel.vue";
-//import Login from "../components/Login.vue";
 //import Create from "../components/Create.vue";
 export default Vue.extend({
   data() {

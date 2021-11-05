@@ -83,7 +83,6 @@ export default Vue.extend({
   mounted() {
     this.user = JSON.parse(localStorage.user);
   },
-  methods: {
-    
-  },
+  methods: {},
 });
+</script>
