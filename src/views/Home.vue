@@ -2,41 +2,35 @@
   <v-form>
     <div>
       <v-toolbar dark dense src="https://i.imgur.com/x6hfLlY.png">
-        
         <v-spacer></v-spacer>
-        <v-btn icon width = "100px">
+        <v-btn icon width="100px">
           <v-icon>mdi-home</v-icon>
         </v-btn>
-        <v-btn icon width = "100px">
+        <v-btn icon width="100px">
           <v-icon>mdi-earth</v-icon>
         </v-btn>
         <v-dialog transition="dialog-bottom-transition" max-width="1000">
           <template v-slot:activator="{ on, attrs }">
             <v-btn icon width="100px" v-bind="attrs" v-on="on">
-              <v-icon>mdi-magnify</v-icon> 
+              <v-icon>mdi-magnify</v-icon>
             </v-btn>
           </template>
           <template v-slot:default="dialog">
             <v-card>
               <v-toolbar color="#fd6359">Search</v-toolbar>
               <v-card-text>
-                <v-text-field
-                  label="Keyword"
-                ></v-text-field>
+                <v-text-field label="Keyword"></v-text-field>
               </v-card-text>
               <v-card-actions class="justify-end">
-              <v-btn
-                text
-                @click="dialog.value = false"
-              >Search</v-btn>
-            </v-card-actions>
+                <v-btn text @click="dialog.value = false">Search</v-btn>
+              </v-card-actions>
             </v-card>
           </template>
         </v-dialog>
-        <v-btn icon width = "100px">
+        <v-btn icon width="100px">
           <v-icon>mdi-food</v-icon>
         </v-btn>
-        <v-btn icon width = "100px">
+        <v-btn icon width="100px">
           <v-icon>mdi-bookmark</v-icon>
         </v-btn>
         <v-spacer></v-spacer>
@@ -63,12 +57,12 @@
                   required
                 ></v-text-field>
               </v-card-text>
-              <v-card-actions class="justify-end"> 
+              <v-card-actions class="justify-end">
                 <v-btn text @click="login(dialog)">Login</v-btn>
-              </v-card-actions> 
+              </v-card-actions>
             </v-card>
           </template>
-        </v-dialog> 
+        </v-dialog>
       </v-toolbar>
     </div>
 
@@ -89,8 +83,12 @@
 
     <v-col class="pt-15">
       <v-row class="mt-4 mb-4">
-
-      <RecipeHoverCard v-for="(recipe, i) in Recipes" :key="i" :recipe="recipe">  </RecipeHoverCard>
+        <RecipeHoverCard
+          v-for="(recipe, i) in Recipes"
+          :key="i"
+          :recipe="recipe"
+        >
+        </RecipeHoverCard>
       </v-row>
     </v-col>
   </v-form>
@@ -100,12 +98,12 @@
 import Vue from "vue";
 //import { mapActions } from "vuex";
 import RecipeHoverCard from "../components/RecipeHoverCard.vue";
-import Login from "../components/Login.vue";
+//import Login from "../components/Login.vue";
 //import Create from "../components/Create.vue";
 export default Vue.extend({
   data() {
     return {
-      Recipes: [], 
+      Recipes: [],
       items: [
         {
           src: "https://i2.wp.com/www.downshiftology.com/wp-content/uploads/2018/11/Roasted-Butternut-Squash-Soup-1-2.jpg",
@@ -132,14 +130,13 @@ export default Vue.extend({
       },
     };
   },
-  mounted(){
+  mounted() {
     this.GetAllRecipes();
   },
   components: {
     RecipeHoverCard,
   },
   methods: {
-
     login(dialog: any) {
       const requestOptions = {
         method: "POST",
@@ -152,7 +149,6 @@ export default Vue.extend({
       return fetch(process.env.VUE_APP_API + "User/login", requestOptions)
         .then(this.handleResponse)
         .then((user: any) => {
-          
           if (user.token) {
             dialog.value = false;
             console.log(user);
@@ -202,15 +198,13 @@ export default Vue.extend({
       const requestOptions = {
         method: "GET",
         headers: { "Content-Type": "application/json" },
-        
       };
       return fetch(process.env.VUE_APP_API + "Recipe/GetAll", requestOptions)
         .then(this.handleResponse)
         .then((recipe: any) => {
-        console.log(recipe)
-        this.Recipes = recipe
-        this.Recipes.splice(0, this.Recipes.length - 4)
-        
+          console.log(recipe);
+          this.Recipes = recipe;
+          this.Recipes.splice(0, this.Recipes.length - 4);
         });
     },
 
@@ -219,7 +213,5 @@ export default Vue.extend({
     },
   },
 });
-</script>  
+</script>
 <style></style>
-
-
