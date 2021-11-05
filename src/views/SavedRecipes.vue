@@ -103,7 +103,6 @@ export default Vue.extend({
         handleResponse(response: any) {
           return response.text().then((text: any) => {
             const data = text && JSON.parse(text);
-
             if (!response.ok) {
               if (response.status === 401) {
                 // Unauthorized request
@@ -114,6 +113,7 @@ export default Vue.extend({
             return data;
           });
         },
+        // TODO: fetch API saved recipes (test other vers.)
         getSavedRecipes() {
           const requestOptions = {
             method: "GET",
