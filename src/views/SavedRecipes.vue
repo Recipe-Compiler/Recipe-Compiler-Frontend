@@ -41,6 +41,7 @@
             :headers="tableHeaders"
             :items="savedRecipes"
             :items-per-page="5"
+            :search="search"
             class="elevation-1"
             >
             </v-data-table>
@@ -53,14 +54,27 @@
 <script lang="ts">
 import Vue from "vue";
 import { mapActions } from "vuex";
-import { api } from "@/App.vue";
 export default Vue.extend({
     data() {
         return {
+            search: '',
             tableHeaders: [
                 {
-                    text: "Recipes"
+                    text: "Recipes",
+                    align: "start",
+                    value: "name"
                 },
+                {
+                  text: "Image",
+                  align: "start",
+                  value: "imgUrl"
+                },
+                // TODO: change this or append
+                {
+                  text: "Recipe Page",
+                  align: "start",
+                  value: "recipeUrl"
+                }
             ],
             savedRecipes: [],
         }
@@ -68,6 +82,7 @@ export default Vue.extend({
     mounted() {
         let user = JSON.parse(localStorage.user);
         this.username = user.username;
+        this.getSavedRecipes();
     },
     methods: {
         goHome() {
@@ -86,9 +101,16 @@ export default Vue.extend({
           return 0;
         },
         getSavedRecipes() {
-          api
-            .get(`RecipeCompiler/${this.username}/saved`)
-          return 0;
+          const requestOptions = {
+            method: "GET",
+            headers: { "Content-Type": "application/json" },
+          };
+          return fetch(process.env.VUE_APP_API + "Recipe/GetAll", requestOptions)
+            .then(this.handleResponse)
+            .then((recipes: any) => {
+            console.log(recipes)
+            this.savedRecipes = recipes; 
+          });
         }
      },
 });
