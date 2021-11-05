@@ -1,8 +1,7 @@
 <template>
   <v-form>
-
+    <v-btn @click="routeLogin"> login </v-btn>
     <RecipeCarousel :recipes="Recipes" />
-
     <v-col class="pt-15">
       <v-row class="mt-4 mb-4">
         <RecipeHoverCard
@@ -41,6 +40,7 @@ export default Vue.extend({
           src: "https://assets.bonappetit.com/photos/5c4b21e785b9bd2cf3b17454/16:9/w_4800,h_2700,c_limit/red-wine-braised-short-ribs.jpg",
         },
       ],
+      user: null,
       username: "",
       password: "",
       email: "",
@@ -134,6 +134,10 @@ export default Vue.extend({
 
     GoToSearch() {
       this.$router.push("SearchResults");
+    },
+
+    routeLogin() {
+      this.$router.push("Login");
     },
   },
 });

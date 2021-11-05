@@ -24,6 +24,7 @@
 
 <script lang="ts">
 import Vue from "vue";
+import App from "@/App.vue"
 import { mapActions } from "vuex";
 export default Vue.extend({
   data() {

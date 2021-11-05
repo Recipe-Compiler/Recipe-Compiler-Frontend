@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
 import Home from '../views/Home.vue'
+import Login from '../views/Login.vue'
+import Create from '../views/Create.vue'
 
 Vue.use(VueRouter)
 
@@ -31,12 +33,17 @@ const routes: Array<RouteConfig> = [
   {
     path: '/Login',
     name: 'Login',
-    component: () => import('../views/Login.vue')
+    component: Login
   },
   {
     path: '/Account',
     name: 'Account',
     component: () => import('../views/Account.vue')
+  },
+  {
+    path: '/Create',
+    name: 'Create',
+    component: Create
   },
 ]
 
