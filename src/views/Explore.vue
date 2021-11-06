@@ -403,12 +403,20 @@
 <script lang="ts">
 import Vue from "vue";
 import { mapActions } from "vuex";
+import ExploreCard from "@/components/ExploreCard.vue";
 export default Vue.extend({
   data() {
     return {
+      Recipes: [],
       snackbar: false,
       text: "",
     };
+  },
+  mounted() {
+    this.GetAllRecipes();
+  },
+  components: {
+    ExploreCard,
   },
   methods: {
     goHome() {
@@ -425,6 +433,19 @@ export default Vue.extend({
     dislikeMessage() {
       this.snackbar = true;
       this.text = "Recipe Disliked";
+    },
+    GetAllRecipes() {
+      const requestOptions = {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      };
+      return fetch(process.env.VUE_APP_API + "Recipe/GetAll", requestOptions)
+        .then(this.handleResponse)
+        .then((recipe: any) => {
+          console.log(recipe);
+          this.Recipes = recipe;
+          this.Recipes.splice(0, this.Recipes.length - 3);
+        });
     },
   },
 });
