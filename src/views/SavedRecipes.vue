@@ -112,7 +112,7 @@ export default Vue.extend({
                   value: "name"
                 },
                 {
-                  text: "Tags",
+                  text: "Description",
                   align: "start",
                   value: "description"
                 },
@@ -122,9 +122,9 @@ export default Vue.extend({
                   value: "totalTimeMinutes"
                 },
                 {
-                  text: "Recipe Page",
+                  text: "Recipe ID",
                   align: "start",
-                  value: "recipeUrl"
+                  value: "id"
                 },
                 {
                   text: "Actions",
@@ -132,38 +132,7 @@ export default Vue.extend({
                   sortable: false
                 }
             ],
-            savedRecipes: [
-              {
-                name: "Matcha Cookies",
-                description: "Dessert, Easy",
-                totalTimeMinutes: "2 Hours 35 mins",
-                recipeUrl: "https://www.cooking-therapy.com/wp-content/uploads/2021/08/Matcha-Cookies-6.jpg"
-              },
-              {
-                name: "Homemade Shoyu Ramen",
-                description: "Ramen, Pork, Soup",
-                totalTimeMinutes: "6 Hours 30 mins",
-                recipeUrl: "https://www.justonecookbook.com/wp-content/uploads/2017/07/Spicy-Shoyu-Ramen-NEW-500x375.jpg"
-              },
-              {
-                name: "Classic Shrimp Scampi",
-                description: "Quick, Shrimp, Easy",
-                totalTimeMinutes: "15 mins",
-                recipeUrl: "https://www.lovebakesgoodcakes.com/wp-content/uploads/2013/06/Shrimp-Scampi-square.jpg"
-              },
-              {
-                name: "Coconut Cream Pie",
-                description: "Pie, Dessert",
-                totalTimeMinutes: "4 Hours 50 mins",
-                recipeUrl: "https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F44%2F2019%2F08%2F26232540%2F5177935.jpg&q=85"
-              },
-              {
-                name: "Spiced Carrot & Lentil Soup",
-                description: "Quick, Soup, Lentil",
-                totalTimeMinutes: "25 mins",
-                recipeUrl: "https://miro.medium.com/max/1400/1*YtnKAZ3HapFN_82nqHEeIw.jpeg"
-              },
-            ],
+            savedRecipes: []
         }
     },
     mounted() {
