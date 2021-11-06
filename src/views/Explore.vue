@@ -403,7 +403,7 @@
 <script lang="ts">
 import Vue from "vue";
 import { mapActions } from "vuex";
-import ExploreCard from "@/components/ExploreCard.vue";
+//import ExploreCard from "@/components/ExploreCard.vue";
 export default Vue.extend({
   data() {
     return {
@@ -416,7 +416,7 @@ export default Vue.extend({
     this.GetAllRecipes();
   },
   components: {
-    ExploreCard,
+    //ExploreCard,
   },
   methods: {
     goHome() {
