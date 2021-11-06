@@ -447,6 +447,19 @@ export default Vue.extend({
           this.Recipes.splice(0, this.Recipes.length - 3);
         });
     },
+    handleResponse(response: any) {
+      return response.text().then((text: any) => {
+        const data = text && JSON.parse(text);
+        if (!response.ok) {
+          if (response.status === 401) {
+            // Unauthorized request
+          }
+          const error = (data && data.message) || response.statusText;
+          return Promise.reject(error);
+        }
+        return data;
+      });
+    },
   },
 });
 </script>
