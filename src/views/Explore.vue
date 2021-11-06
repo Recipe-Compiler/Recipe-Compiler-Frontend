@@ -1,36 +1,5 @@
 <template>
   <v-form>
-    <v-bottom-navigation
-      color="white"
-      style="background-color: #fd6359"
-      grow
-      height="50px"
-    >
-      <v-btn
-        style="text-color: white; background-color: #fd6359"
-        height="50px"
-        @click="goHome"
-      >
-        <span>Home</span>
-        <v-icon>mdi-home</v-icon>
-      </v-btn>
-      <v-btn style="text-color: white; background-color: #fd6359" height="50px">
-        <span>Explore</span>
-        <v-icon>mdi-earth</v-icon>
-      </v-btn>
-      <v-btn style="text-color: white; background-color: #fd6359" height="50px">
-        <span>Search</span>
-        <v-icon>mdi-magnify</v-icon>
-      </v-btn>
-      <v-btn style="text-color: white; background-color: #fd6359" height="50px">
-        <span>Meal Prep</span>
-        <v-icon>mdi-food</v-icon>
-      </v-btn>
-      <v-btn style="text-color: white; background-color: #fd6359" height="50px">
-        <span>Bookmarks</span>
-        <v-icon>mdi-bookmark</v-icon>
-      </v-btn>
-    </v-bottom-navigation>
     <v-col class="pt-15">
       <v-row class="mt-4 mb-4">
         <v-col cols="4">
