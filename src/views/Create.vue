@@ -1,34 +1,52 @@
 <template>
   <v-form>
-    <v-card>
-      <h3>Create Account</h3>
-      <v-card-text>
+    <v-col class="pt-15">
+      <h1 align="center" style="color: #7d312c">
+        Please enter your information to register an account.
+      </h1>
+      <v-card class="px-7 py-7 mr-5" shaped>
         <v-text-field
-          label="Username"
           v-model="username"
+          label="Username"
           required
+          outlined
+          class="mt-2"
         ></v-text-field>
-        <v-text-field label="Email" v-model="email" required></v-text-field>
         <v-text-field
-          label="Password"
-          v-model="password"
+          v-model="email"
+          label="Email"
           required
+          outlined
+          class="mt-2"
         ></v-text-field>
-      </v-card-text>
-      <v-btn @click="register" color="red">Register</v-btn>
-    </v-card>
-    <v-row justify="center" class="mb-4 mt-4 mr-4 ml-4">
-      <v-col cols="4"></v-col>
-      <v-col cols="2">
-        <span style="color: #7d312c">Clicked the wrong button?</span>
-      </v-col>
-      <v-col cols="1">
-        <v-btn color="red" :center="true" :absolute="true" @click="routeLogin"
-          >Login</v-btn
-        >
-      </v-col>
-      <v-col cols="5"></v-col>
-    </v-row>
+        <v-text-field
+          v-model="password"
+          label="Password"
+          required
+          outlined
+          class="mt-2"
+        ></v-text-field>
+        <v-row>
+          <v-col cols="8"
+            ><v-btn color="red" @click="register">Register</v-btn></v-col
+          >
+          <v-col cols="2"
+            ><span style="color: #7d312c"
+              >Clicked the wrong button?</span
+            ></v-col
+          >
+          <v-col cols="2"
+            ><v-btn
+              color="red"
+              :center="true"
+              :absolute="true"
+              @click="routeLogin"
+              >Login</v-btn
+            ></v-col
+          >
+        </v-row>
+      </v-card>
+    </v-col>
   </v-form>
 </template>
 

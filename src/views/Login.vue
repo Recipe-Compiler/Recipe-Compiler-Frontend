@@ -21,22 +21,25 @@
         ></v-text-field>
         <v-btn color="red" @click="login">Login</v-btn>
       </v-card>
-      <v-row justify="center" class="mb-4 mt-4 mr-4 ml-4">
-        <v-col cols="4"></v-col>
-        <v-col cols="2">
-          <span style="color: #7d312c">Clicked the wrong button?</span>
-        </v-col>
-        <v-col cols="1">
-          <v-btn
-            @click="routeCreate"
-            color="red"
-            :center="true"
-            :absolute="true"
-            >Create Account</v-btn
+      <v-row>
+          <v-col cols="8"
+            ><v-btn color="red" @click="login">Login</v-btn></v-col
           >
-        </v-col>
-        <v-col cols="5"></v-col>
-      </v-row>
+          <v-col cols="2"
+            ><span style="color: #7d312c"
+              >Clicked the wrong button?</span
+            ></v-col
+          >
+          <v-col cols="2"
+            ><v-btn
+              color="red"
+              :center="true"
+              :absolute="true"
+              @click="routeCreate"
+              >Register</v-btn
+            ></v-col
+          >
+          </v-row>
     </v-col>
   </v-form>
 </template>
