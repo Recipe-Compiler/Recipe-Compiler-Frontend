@@ -2,66 +2,24 @@
   <v-form>
     <v-toolbar dark dense src="https://i.imgur.com/x6hfLlY.png">
       <v-spacer></v-spacer>
-      <v-btn icon width="100px" @click="routeHome">
-        <v-icon>mdi-home</v-icon>
-      </v-btn>
-      <v-btn icon width="100px" @click="routeExplore">
-        <v-icon>mdi-earth </v-icon>
-      </v-btn>
-      <v-dialog transition="dialog-bottom-transition" max-width="1000">
-        <template v-slot:activator="{ on, attrs }">
-          <v-btn icon width="100px"  v-bind="attrs" v-on="on">
-            <v-icon>mdi-magnify</v-icon>
-          </v-btn>
-        </template>
-        <template v-slot:default="dialog">
-          <v-card>
-            <v-toolbar color="#fd6359">Search</v-toolbar>
-            <v-card-text>
-              <v-text-field label="Keyword"></v-text-field>
-            </v-card-text>
-            <v-card-actions class="justify-end">
-              <v-btn text @click="routeSearch(dialog)">Search</v-btn>
-            </v-card-actions>
-          </v-card>
-        </template>
-      </v-dialog>
-      <v-btn icon width="100px"> 
-        <v-icon>mdi-food</v-icon>
-      </v-btn>
-      <v-btn icon width="100px">
-        <v-icon>mdi-bookmark</v-icon>
+      <v-btn
+        @click="$router.push(button.route)"
+        width="100px"
+        icon
+        class="mr-3"
+        v-for="(button, i) in buttons"
+        :key="i"
+      >
+        <v-icon>
+          {{ button.icon }}
+        </v-icon>
+        {{ button.text }}
       </v-btn>
       <v-spacer></v-spacer>
-      <!-- <v-dialog transition="dialog-bottom-transition" max-width="600">
-      <template v-slot:activator="{ on, attrs }">
-        <v-btn icon v-bind="attrs" v-on="on" @click="accountBtn">
-          <v-icon>mdi-account</v-icon>
-        </v-btn>
-      </template>
-      <template v-slot:default="dialog">
-        <v-card>
-          <v-toolbar color="#fd6359">Login</v-toolbar>
-          <v-card-text>
-            <v-text-field
-              label="Username"
-              v-model="username"
-              :rules="[rules.required]"
-              required
-            ></v-text-field>
-            <v-text-field
-              label="Password"
-              v-model="password"
-              :rules="[rules.required]"
-              required
-            ></v-text-field>
-          </v-card-text>
-          <v-card-actions class="justify-end">
-            <v-btn text @click="login(dialog)">Login</v-btn>
-          </v-card-actions>
-        </v-card>
-      </template> 
-    </v-dialog> -->
+      <div v-if="user === null">
+        <LoginDialog />
+      </div>
+      <div v-else><v-btn @click="clear"> Clear User </v-btn></div>
     </v-toolbar>
   </v-form>
 </template>
@@ -70,29 +28,64 @@
 import Vue from "vue";
 //import { mapActions } from "vuex";
 import Login from "../views/Login.vue";
-//import Create from "../components/Create.vue"; 
+import LoginDialog from "../components/LoginDialog.vue";
+//import Create from "../components/Create.vue";
 export default Vue.extend({
   data() {
     return {
       user: null,
+      buttons: [
+        {
+          icon: "mdi-home",
+          text: "Home",
+          route: "/",
+        },
+        {
+          icon: "mdi-earth",
+          text: "Explore",
+          route: "explore",
+        },
+        {
+          icon: "mdi-magnify",
+          text: "Search",
+          route: "search",
+        },
+        {
+          icon: "mdi-food",
+          text: "Meal Plan",
+          route: "meal-plan",
+        },
+        {
+          icon: "mdi-bookmark",
+          text: "Saved",
+          route: "saved",
+        },
+      ],
     };
   },
   mounted() {
     this.user = JSON.parse(localStorage.user);
   },
   methods: {
-    routeHome(){
-      this.$router.push({ path: "/"}); 
+    routeHome() {
+      this.$router.push({ path: "/" });
     },
 
-    routeExplore(){
+    routeExplore() {
       this.$router.push("Explore");
     },
 
-    routeSearch(dialog: any){
+    routeSearch(dialog: any) {
       dialog.value = false;
-      this.$router.push({ path: "/SearchResults"});
+      this.$router.push({ path: "/SearchResults" });
     },
+    clear() {
+      localStorage.user = null;
+      this.$router.go(0);
+    },
+  },
+  components: {
+    LoginDialog,
   },
 });
 </script>

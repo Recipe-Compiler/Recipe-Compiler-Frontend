@@ -4,9 +4,9 @@
       <v-card class="mx-auto" max-width="344" height="500">
         <v-card-text>
           <h2 class="text-h6 primary--text">{{ recipe.name }}</h2>
-          {{ recipe.description }}
+          by {{ recipe.author || "Unknown" }}
         </v-card-text>
-
+        {{ recipe.description || "No description found" }}
         <v-card-title>
           <v-rating
             :value="4"
@@ -36,4 +36,4 @@ export default Vue.extend({
     hover: Boolean,
   },
 });
-</script> 
+</script>
