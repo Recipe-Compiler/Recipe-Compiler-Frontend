@@ -19,11 +19,9 @@
           outlined
           class="mt-2"
         ></v-text-field>
-        <v-btn color="red" @click="login">Login</v-btn>
-      </v-card>
-      <v-row>
+        <v-row>
           <v-col cols="8"
-            ><v-btn color="red" @click="login">Login</v-btn></v-col
+            ><v-btn color="red" @click="Login">Login</v-btn></v-col
           >
           <v-col cols="2"
             ><span style="color: #7d312c"
@@ -39,7 +37,9 @@
               >Register</v-btn
             ></v-col
           >
-          </v-row>
+        </v-row>
+      </v-card>
+
     </v-col>
   </v-form>
 </template>
