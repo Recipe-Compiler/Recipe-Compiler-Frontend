@@ -22,8 +22,8 @@
 <script lang="ts">
 import Vue from "vue";
 //import { mapActions } from "vuex";
-import RecipeHoverCard from "../components/RecipeHoverCard.vue";
-import RecipeCarousel from "../components/RecipeCarousel.vue";
+import RecipeHoverCard from "../components/recipe/RecipeHoverCard.vue";
+import RecipeCarousel from "../components/recipe/RecipeCarousel.vue";
 //import Create from "../components/Create.vue";
 export default Vue.extend({
   data() {

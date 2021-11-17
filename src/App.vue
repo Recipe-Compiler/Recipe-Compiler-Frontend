@@ -11,7 +11,7 @@
 
 <script lang="ts">
 import Vue from "vue";
-import GlobalToolbar from "@/components/GlobalToolbar.vue";
+import GlobalToolbar from "@/components/common/GlobalToolbar.vue";
 
 export default Vue.extend({
   name: "App",
