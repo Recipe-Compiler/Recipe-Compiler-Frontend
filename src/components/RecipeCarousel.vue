@@ -4,7 +4,7 @@
       cycle
       show-arrows-on-hover
       hide-delimiter-background
-      height="1250px"
+      height="500px"
       v-model="recipeIndex"
     >
       <v-carousel-item
@@ -12,11 +12,12 @@
         :key="i"
         :src="item.imageUrl"
         fade
-      ></v-carousel-item>
+      >
+        <v-card-title class="justify-center blue-grey lighten-5">
+          {{ recipes[recipeIndex].name }} by {{ recipes[recipeIndex].author }}
+        </v-card-title>
+      </v-carousel-item>
     </v-carousel>
-    <v-card-title>
-      {{ recipes[recipeIndex].name }}
-    </v-card-title>
   </v-card>
 </template>
 <script lang="ts">
