@@ -1,27 +1,5 @@
 <template>
   <v-form>
-      <v-bottom-navigation color="white" style="background-color: #fd6359" grow height="50px">
-      <v-btn style="text-color: white; background-color: #fd6359" height="50px" @click="goHome">
-        <span>Home</span>
-        <v-icon>mdi-home</v-icon>
-      </v-btn>
-      <v-btn style="text-color: white; background-color: #fd6359" height="50px">
-        <span>Explore</span>
-        <v-icon>mdi-earth</v-icon>
-      </v-btn>
-      <v-btn style="text-color: white; background-color: #fd6359" height="50px">
-        <span>Search</span>
-        <v-icon>mdi-magnify</v-icon>
-      </v-btn>
-      <v-btn style="text-color: white; background-color: #fd6359" height="50px">
-        <span>Meal Prep</span>
-        <v-icon>mdi-food</v-icon>
-      </v-btn>
-      <v-btn style="text-color: white; background-color: #fd6359" height="50px">
-        <span>Bookmarks</span>
-        <v-icon>mdi-bookmark</v-icon>
-      </v-btn>
-    </v-bottom-navigation>
     <v-col class="pt-15">
       <v-row align="center" justify="center">
         <h1>Saved Recipes</h1>
@@ -59,8 +37,7 @@
             loading-text="Loading Your Delicious Recipes..."
           >
             <template v-slot:item.actions="{ item }">
-            <v-icon
-              small
+            <v-icon small align="center" justify="center"
               @click="unsaveRecipe(item)"
             >
               mdi-bookmark
@@ -68,7 +45,7 @@
           </template>
           <template v-slot:expanded-item="{ headers, item }">
             <td :colspan="headers.length">
-              More info about {{ item.name }}
+              {{ item.name }} Instructions: {{ item.instructions }}
             </td>
           </template>
           </v-data-table>
@@ -107,7 +84,7 @@ export default Vue.extend({
             dialogDelete: false,
             tableHeaders: [
                 {
-                  text: "Recipes",
+                  text: "Recipe",
                   align: "start",
                   value: "name"
                 },
