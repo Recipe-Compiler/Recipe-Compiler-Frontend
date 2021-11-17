@@ -1,36 +1,5 @@
 <template>
   <v-form>
-    <v-bottom-navigation
-      color="white"
-      style="background-color: #fd6359"
-      grow
-      height="50px"
-    >
-      <v-btn
-        style="text-color: white; background-color: #fd6359"
-        height="50px"
-        @click="goHome"
-      >
-        <span>Home</span>
-        <v-icon>mdi-home</v-icon>
-      </v-btn>
-      <v-btn style="text-color: white; background-color: #fd6359" height="50px">
-        <span>Explore</span>
-        <v-icon>mdi-earth</v-icon>
-      </v-btn>
-      <v-btn style="text-color: white; background-color: #fd6359" height="50px">
-        <span>Search</span>
-        <v-icon>mdi-magnify</v-icon>
-      </v-btn>
-      <v-btn style="text-color: white; background-color: #fd6359" height="50px">
-        <span>Meal Prep</span>
-        <v-icon>mdi-food</v-icon>
-      </v-btn>
-      <v-btn style="text-color: white; background-color: #fd6359" height="50px">
-        <span>Bookmarks</span>
-        <v-icon>mdi-bookmark</v-icon>
-      </v-btn>
-    </v-bottom-navigation>
     <v-col class="pt-15">
       <v-row class="mt-4 mb-4">
         <v-col cols="4">
@@ -434,12 +403,20 @@
 <script lang="ts">
 import Vue from "vue";
 import { mapActions } from "vuex";
+//import ExploreCard from "@/components/ExploreCard.vue";
 export default Vue.extend({
   data() {
     return {
+      Recipes: [],
       snackbar: false,
       text: "",
     };
+  },
+  mounted() {
+    this.GetAllRecipes();
+  },
+  components: {
+    //ExploreCard,
   },
   methods: {
     goHome() {
@@ -456,6 +433,32 @@ export default Vue.extend({
     dislikeMessage() {
       this.snackbar = true;
       this.text = "Recipe Disliked";
+    },
+    GetAllRecipes() {
+      const requestOptions = {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      };
+      return fetch(process.env.VUE_APP_API + "Recipe/GetAll", requestOptions)
+        .then(this.handleResponse)
+        .then((recipe: any) => {
+          console.log(recipe);
+          this.Recipes = recipe;
+          this.Recipes.splice(0, this.Recipes.length - 3);
+        });
+    },
+    handleResponse(response: any) {
+      return response.text().then((text: any) => {
+        const data = text && JSON.parse(text);
+        if (!response.ok) {
+          if (response.status === 401) {
+            // Unauthorized request
+          }
+          const error = (data && data.message) || response.statusText;
+          return Promise.reject(error);
+        }
+        return data;
+      });
     },
   },
 });

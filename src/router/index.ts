@@ -1,7 +1,7 @@
+
 import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
 import Home from '../views/Home.vue'
-
 Vue.use(VueRouter)
 
 const routes: Array<RouteConfig> = [
@@ -32,7 +32,12 @@ const routes: Array<RouteConfig> = [
     path: '/Explore',
     name: 'Explore',
     component: () => import('../views/Explore.vue')
-  }
+  },
+  {
+    path: '/Account',
+    name: 'Account',
+    component: () => import('../views/Account.vue')
+  },
 ]
 
 const router = new VueRouter({

@@ -1,87 +1,12 @@
 <template>
-  <v-form>
-    <div>
-      <v-toolbar dark dense src="https://i.imgur.com/x6hfLlY.png">
-        <v-spacer></v-spacer>
-        <v-btn icon width="100px">
-          <v-icon>mdi-home</v-icon>
-        </v-btn>
-        <v-btn icon width="100px">
-          <v-icon>mdi-earth</v-icon>
-        </v-btn>
-        <v-dialog transition="dialog-bottom-transition" max-width="1000">
-          <template v-slot:activator="{ on, attrs }">
-            <v-btn icon width="100px" v-bind="attrs" v-on="on">
-              <v-icon>mdi-magnify</v-icon>
-            </v-btn>
-          </template>
-          <template v-slot:default="dialog">
-            <v-card>
-              <v-toolbar color="#fd6359">Search</v-toolbar>
-              <v-card-text>
-                <v-text-field label="Keyword"></v-text-field>
-              </v-card-text>
-              <v-card-actions class="justify-end">
-                <v-btn text @click="dialog.value = false">Search</v-btn>
-              </v-card-actions>
-            </v-card>
-          </template>
-        </v-dialog>
-        <v-btn icon width="100px">
-          <v-icon>mdi-food</v-icon>
-        </v-btn>
-        <v-btn icon width="100px">
-          <v-icon>mdi-bookmark</v-icon>
-        </v-btn>
-        <v-spacer></v-spacer>
-        <v-dialog transition="dialog-bottom-transition" max-width="600">
-          <template v-slot:activator="{ on, attrs }">
-            <v-btn icon v-bind="attrs" v-on="on">
-              <v-icon>mdi-account</v-icon>
-            </v-btn>
-          </template>
-          <template v-slot:default="dialog">
-            <v-card>
-              <v-toolbar color="#fd6359">Login</v-toolbar>
-              <v-card-text>
-                <v-text-field
-                  label="Username"
-                  v-model="username"
-                  :rules="[rules.required]"
-                  required
-                ></v-text-field>
-                <v-text-field
-                  label="Password"
-                  v-model="password"
-                  :rules="[rules.required]"
-                  required
-                ></v-text-field>
-              </v-card-text>
-              <v-card-actions class="justify-end">
-                <v-btn text @click="login(dialog)">Login</v-btn>
-              </v-card-actions>
-            </v-card>
-          </template>
-        </v-dialog>
-      </v-toolbar>
-    </div>
+  <v-flex>
+    <v-container>
+      <h1 class="text-center mb-2">Featured Recipes</h1>
+      <RecipeCarousel :recipes="Recipes" />
+    </v-container>
 
-    <v-carousel
-      cycle
-      show-arrows-on-hover
-      hide-delimiter-background
-      height="1250px"
-    >
-      <v-carousel-item
-        v-for="(item, i) in Recipes"
-        :key="i"
-        :src="item.imageUrl"
-        reverse-transition="fade-transition"
-        transition="fade-transition"
-      ></v-carousel-item>
-    </v-carousel>
-
-    <v-col class="pt-15">
+    <v-col class="pt-6">
+      <h1 class="text-center mb-3 pb-3">Want to find out more?</h1>
       <v-row class="mt-4 mb-4">
         <RecipeHoverCard
           v-for="(recipe, i) in Recipes"
@@ -91,14 +16,14 @@
         </RecipeHoverCard>
       </v-row>
     </v-col>
-  </v-form>
+  </v-flex>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
 //import { mapActions } from "vuex";
-import RecipeHoverCard from "../components/RecipeHoverCard.vue";
-//import Login from "../components/Login.vue";
+import RecipeHoverCard from "../components/recipe/RecipeHoverCard.vue";
+import RecipeCarousel from "../components/recipe/RecipeCarousel.vue";
 //import Create from "../components/Create.vue";
 export default Vue.extend({
   data() {
@@ -118,6 +43,7 @@ export default Vue.extend({
           src: "https://assets.bonappetit.com/photos/5c4b21e785b9bd2cf3b17454/16:9/w_4800,h_2700,c_limit/red-wine-braised-short-ribs.jpg",
         },
       ],
+      user: null,
       username: "",
       password: "",
       email: "",
@@ -135,6 +61,7 @@ export default Vue.extend({
   },
   components: {
     RecipeHoverCard,
+    RecipeCarousel,
   },
   methods: {
     login(dialog: any) {
@@ -210,6 +137,10 @@ export default Vue.extend({
 
     GoToSearch() {
       this.$router.push("SearchResults");
+    },
+
+    routeLogin() {
+      this.$router.push("Login");
     },
   },
 });

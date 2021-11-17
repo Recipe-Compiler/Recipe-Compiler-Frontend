@@ -24,6 +24,7 @@
 
 <script lang="ts">
 import Vue from "vue";
+import App from "@/App.vue";
 import { mapActions } from "vuex";
 export default Vue.extend({
   data() {
@@ -35,13 +36,13 @@ export default Vue.extend({
     this.user = this.getUser();
   },
   methods: {
-      getUser() {
+    getUser() {
       if (localStorage.user) {
         return JSON.parse(localStorage.user);
       } else {
         return {};
       }
     },
-  }
-
+  },
 });
+</script>
