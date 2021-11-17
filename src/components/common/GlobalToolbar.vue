@@ -17,9 +17,25 @@
       </v-btn>
       <v-spacer></v-spacer>
       <div v-if="user === null">
-        <LoginDialog />
+        <v-row>
+          <v-col>
+            <LoginDialog />
+          </v-col>
+          <v-col class="ml-2">
+            <RegisterDialog />
+          </v-col>
+        </v-row>
       </div>
-      <div v-else><v-btn @click="clear"> Clear User </v-btn></div>
+      <div v-else>
+        <v-row>
+          <v-col>
+            <v-btn @click="clear"> Logout </v-btn>
+          </v-col>
+          <v-col>
+            <UserInfoDialog />
+          </v-col>
+        </v-row>
+      </div>
     </v-toolbar>
   </v-form>
 </template>
@@ -27,8 +43,9 @@
 <script lang="ts">
 import Vue from "vue";
 //import { mapActions } from "vuex";
-import Login from "../views/Login.vue";
-import LoginDialog from "../components/LoginDialog.vue";
+import LoginDialog from "../user/LoginDialog.vue";
+import RegisterDialog from "../user/RegisterDialog.vue";
+import UserInfoDialog from "../user/UserInfoDialog.vue";
 //import Create from "../components/Create.vue";
 export default Vue.extend({
   data() {
@@ -86,6 +103,8 @@ export default Vue.extend({
   },
   components: {
     LoginDialog,
+    RegisterDialog,
+    UserInfoDialog,
   },
 });
 </script>
