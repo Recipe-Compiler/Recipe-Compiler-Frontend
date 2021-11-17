@@ -45,7 +45,7 @@ import Vue from "vue";
 //import { mapActions } from "vuex";
 import LoginDialog from "../user/LoginDialog.vue";
 import RegisterDialog from "../user/RegisterDialog.vue";
-import UserInfoDialog from "../user/UserInfoDialog.vue";
+import UserInfoDialog from "../user/AccountMenu.vue";
 //import Create from "../components/Create.vue";
 export default Vue.extend({
   data() {

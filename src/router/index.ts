@@ -33,11 +33,6 @@ const routes: Array<RouteConfig> = [
     name: 'Account',
     component: () => import('../views/Account.vue')
   },
-  {
-    path: '/Create',
-    name: 'Create',
-    component: () => import('../views/Create.vue')
-  },
 ]
 
 const router = new VueRouter({
