@@ -34,6 +34,43 @@
             @page-count="pageCount = $event"
             loading-text="Loading Your Delicious Recipes..."
           >
+          <template v-slot:item.actions="{ item }">
+            <v-icon small align="center" justify="center"
+              @click="addDay1(item)"
+            >
+              mdi-numeric-1-circle
+            </v-icon>
+            <v-icon small align="center" justify="center"
+              @click="addDay2(item)"
+            >
+              mdi-numeric-2-circle
+            </v-icon>
+            <v-icon small align="center" justify="center"
+              @click="addDay3(item)"
+            >
+              mdi-numeric-3-circle
+            </v-icon>
+            <v-icon small align="center" justify="center"
+              @click="addDay4(item)"
+            >
+              mdi-numeric-4-circle
+            </v-icon>
+            <v-icon small align="center" justify="center"
+              @click="addDay5(item)"
+            >
+              mdi-numeric-5-circle
+            </v-icon>
+            <v-icon small align="center" justify="center"
+              @click="addDay6(item)"
+            >
+              mdi-numeric-6-circle
+            </v-icon>
+            <v-icon small align="center" justify="center"
+              @click="addDay7(item)"
+            >
+              mdi-numeric-7-circle
+            </v-icon>
+          </template>
           <template v-slot:expanded-item="{ headers, item }">
             <td :colspan="headers.length">
               {{ item.name }} Instructions: {{ item.instructions }}
@@ -48,6 +85,108 @@
         :length="pageCount"
       ></v-pagination>
     </div>
+  </v-col>
+  <v-col class="pt-15">
+    <v-row align="center" justify="center">
+    <v-data-table align="center" justify="center"
+            :headers="day1Headers"
+            :items="day1Recipes"
+            :page.sync="page"
+            :items-per-page="itemsPerPage"
+            :search="search"
+            show-expand
+            item-key="name"
+            hide-default-footer
+            class="elevation-1"
+            @page-count="pageCount = $event"
+            loading-text="Loading Your Delicious Recipes..."
+    >
+    </v-data-table>
+    <v-data-table align="center" justify="center"
+            :headers="day2Headers"
+            :items="day2Recipes"
+            :page.sync="page"
+            :items-per-page="itemsPerPage"
+            :search="search"
+            show-expand
+            item-key="name"
+            hide-default-footer
+            class="elevation-1"
+            @page-count="pageCount = $event"
+            loading-text="Loading Your Delicious Recipes..."
+    >
+    </v-data-table>
+    <v-data-table align="center" justify="center"
+            :headers="day3Headers"
+            :items="day3Recipes"
+            :page.sync="page"
+            :items-per-page="itemsPerPage"
+            :search="search"
+            show-expand
+            item-key="name"
+            hide-default-footer
+            class="elevation-1"
+            @page-count="pageCount = $event"
+            loading-text="Loading Your Delicious Recipes..."
+    >
+    </v-data-table>
+    <v-data-table align="center" justify="center"
+            :headers="day4Headers"
+            :items="day4Recipes"
+            :page.sync="page"
+            :items-per-page="itemsPerPage"
+            :search="search"
+            show-expand
+            item-key="name"
+            hide-default-footer
+            class="elevation-1"
+            @page-count="pageCount = $event"
+            loading-text="Loading Your Delicious Recipes..."
+    >
+    </v-data-table>
+    <v-data-table align="center" justify="center"
+            :headers="day5Headers"
+            :items="day5Recipes"
+            :page.sync="page"
+            :items-per-page="itemsPerPage"
+            :search="search"
+            show-expand
+            item-key="name"
+            hide-default-footer
+            class="elevation-1"
+            @page-count="pageCount = $event"
+            loading-text="Loading Your Delicious Recipes..."
+    >
+    </v-data-table>
+    <v-data-table align="center" justify="center"
+            :headers="day6Headers"
+            :items="day6Recipes"
+            :page.sync="page"
+            :items-per-page="itemsPerPage"
+            :search="search"
+            show-expand
+            item-key="name"
+            hide-default-footer
+            class="elevation-1"
+            @page-count="pageCount = $event"
+            loading-text="Loading Your Delicious Recipes..."
+    >
+    </v-data-table>
+    <v-data-table align="center" justify="center"
+            :headers="day7Headers"
+            :items="day7Recipes"
+            :page.sync="page"
+            :items-per-page="itemsPerPage"
+            :search="search"
+            show-expand
+            item-key="name"
+            hide-default-footer
+            class="elevation-1"
+            @page-count="pageCount = $event"
+            loading-text="Loading Your Delicious Recipes..."
+    >
+    </v-data-table>
+  </v-row>
   </v-col>
   </v-form>
 </template>
@@ -72,22 +211,68 @@ export default Vue.extend({
                   value: "name"
                 },
                 {
-                  text: "Description",
-                  align: "start",
-                  value: "description"
-                },
-                {
-                  text: "Total Time",
-                  align: "start",
-                  value: "totalTimeMinutes"
-                },
-                {
-                  text: "Recipe ID",
-                  align: "start",
-                  value: "id"
-                },
+                  text: "Select Day To Add To Plan",
+                  value: 'actions',
+                  sortable: false
+                }
             ],
-            mealPlanRecipes: []
+            day1Headers: [
+              {
+                  text: "Day 1 Recipes",
+                  align: "start",
+                  value: "name"
+              },
+            ],
+            day2Headers: [
+              {
+                  text: "Day 2 Recipes",
+                  align: "start",
+                  value: "name"
+              },
+            ],
+            day3Headers: [
+              {
+                  text: "Day 3 Recipes",
+                  align: "start",
+                  value: "name"
+              },
+            ],
+            day4Headers: [
+              {
+                  text: "Day 4 Recipes",
+                  align: "start",
+                  value: "name"
+              },
+            ],
+            day5Headers: [
+              {
+                  text: "Day 5 Recipes",
+                  align: "start",
+                  value: "name"
+              },
+            ],
+            day6Headers: [
+              {
+                  text: "Day 6 Recipes",
+                  align: "start",
+                  value: "name"
+              },
+            ],
+            day7Headers: [
+              {
+                  text: "Day 7 Recipes",
+                  align: "start",
+                  value: "name"
+              },
+            ],
+            mealPlanRecipes: [],
+            day1Recipes: [],
+            day2Recipes: [],
+            day3Recipes: [],
+            day4Recipes: [],
+            day5Recipes: [],
+            day6Recipes: [],
+            day7Recipes: []
         }
     },
     mounted() {
@@ -101,6 +286,34 @@ export default Vue.extend({
         setFilters() {
             // sets filters to display recipes
             return 0;
+        },
+        addDay1() {
+          this.snackbar = true;
+          this.text = "Recipe Added To Day 1 Plan";
+        },
+        addDay2() {
+          this.snackbar = true;
+          this.text = "Recipe Added To Day 2 Plan";
+        },
+        addDay3() {
+          this.snackbar = true;
+          this.text = "Recipe Added To Day 3 Plan";
+        },
+        addDay4() {
+          this.snackbar = true;
+          this.text = "Recipe Added To Day 4 Plan";
+        },
+        addDay5() {
+          this.snackbar = true;
+          this.text = "Recipe Added To Day 5 Plan";
+        },
+        addDay6() {
+          this.snackbar = true;
+          this.text = "Recipe Added To Day 6 Plan";
+        },
+        addDay7() {
+          this.snackbar = true;
+          this.text = "Recipe Added To Day 7 Plan";
         },
         handleResponse(response: any) {
           return response.text().then((text: any) => {
