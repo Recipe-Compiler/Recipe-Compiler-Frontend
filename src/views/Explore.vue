@@ -1,9 +1,8 @@
-<template>
+<!-- <template>
   <v-form>
     <v-col class="pt-15">
       <v-row class="mt-4 mb-4">
         <v-col cols="4">
-          <!-- Edit navigation above -->
 
           <v-snackbar v-model="snackbar">
             {{ text }}
@@ -12,7 +11,7 @@
                 Close
               </v-btn>
             </template>
-          </v-snackbar>
+          </v-snackbar> 
 
           <v-hover v-slot="{ hover }">
             <v-card
@@ -398,12 +397,28 @@
       </v-row>
     </v-col>
   </v-form>
+</template> -->
+<template>
+  <v-flex>
+      <v-col class="pt-15">
+      <v-row class="mt-4 mb-4">
+        
+          <ExploreCard
+            v-for="(recipe, i) in Recipes"
+            :key="i"
+            :recipe="recipe"
+          >
+          </ExploreCard>
+        
+      </v-row>
+      </v-col>
+  </v-flex>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
 import { mapActions } from "vuex";
-//import ExploreCard from "@/components/ExploreCard.vue";
+import ExploreCard from "@/components/ExploreCard.vue";
 export default Vue.extend({
   data() {
     return {
@@ -416,12 +431,9 @@ export default Vue.extend({
     this.GetAllRecipes();
   },
   components: {
-    //ExploreCard,
+    ExploreCard,
   },
   methods: {
-    goHome() {
-      this.$router.push("Home");
-    },
     bookmarkMessage() {
       this.snackbar = true;
       this.text = "Added to bookmarks";
@@ -444,7 +456,7 @@ export default Vue.extend({
         .then((recipe: any) => {
           console.log(recipe);
           this.Recipes = recipe;
-          this.Recipes.splice(0, this.Recipes.length - 3);
+          
         });
     },
     handleResponse(response: any) {

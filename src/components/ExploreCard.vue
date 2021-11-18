@@ -11,8 +11,8 @@
           <v-progress-linear color="deep-purple" height="10" indeterminate>
           </v-progress-linear>
         </template>
-        <v-img height="250">
-            {{ recipe.imageUrl }}
+        <v-img height="250" src="item.imageUrl">
+        
           <v-fade-transition>
             <v-overlay v-if="hover" absolute color="#036358">
               <v-btn>See more info</v-btn>
