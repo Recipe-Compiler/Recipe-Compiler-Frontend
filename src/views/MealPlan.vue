@@ -76,7 +76,7 @@
         </v-row>
     </v-col>
   </v-col>
-  <v-col class="pt-15">
+  <v-col class="mt-4 mb-4 ml-4 mr-4">
     <v-row align="center" justify="center">
     <v-data-table align="center" justify="center"
             :headers="day1Headers"
