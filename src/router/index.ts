@@ -34,6 +34,11 @@ const routes: Array<RouteConfig> = [
     component: () => import('../views/Account.vue')
   },
   {
+    path: '/meal-plan',
+    name: 'Meal Planning',
+    component: () => import('../views/MealPlan.vue')
+  },
+  {
     path: '/recipe/:id',
     name: 'recipe',
     component: () => import('../views/Recipe.vue'),
