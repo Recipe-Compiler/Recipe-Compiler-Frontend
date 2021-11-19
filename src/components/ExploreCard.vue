@@ -23,21 +23,32 @@
         <v-card-title>{{ recipe.name }}</v-card-title>
         <v-card-text>
           <v-row align="center" class="mx-0">
-            <v-rating
+            <!-- <v-rating
               :value="4.5"
               color="amber"
               dense
               half-increments
               readonly
               size="14"
-            ></v-rating>
+            ></v-rating> 
 
-            <div class="grey--text ms-4">4.5 (413)</div>
+            <div class="grey--text ms-4">4.5 (413)</div> -->
           </v-row>
 
           <div class="my-4 text-subtitle-1">
             Recipe by: {{ recipe.author || "Unknown"  }}
           </div>
+
+          <small class="ml-2"> Tags: </small>
+          <v-chip
+            v-for="tag in recipe.tags"
+            :key="tag.id"
+            class="ma-2"
+            label
+          >
+            {{ tag.name }}
+          </v-chip>
+          
 
          <!--  <div>{{ recipe.description }}</div> -->
         </v-card-text>
@@ -65,6 +76,9 @@ export default Vue.extend({
   props: {
     recipe: Object,
     hover: Boolean,
+  },
+  data() {
+    return {};
   },
 });
 </script> 
