@@ -20,10 +20,10 @@ class Service {
         this.redirectTo(document, '/')
         break;
       case 404:
-        this.redirectTo(document, '/404')
+        //this.redirectTo(document, '/404')
         break;
       default:
-        this.redirectTo(document, '/500')
+        //this.redirectTo(document, '/500')
         break;
     }
     return Promise.reject(error)
