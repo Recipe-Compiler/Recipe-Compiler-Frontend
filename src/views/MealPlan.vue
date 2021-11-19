@@ -24,49 +24,45 @@
           <v-data-table align="center" justify="center"
             :headers="tableHeaders"
             :items="mealPlanRecipes"
-            :page.sync="page"
-            :items-per-page="itemsPerPage"
-            :search="search"
+            :items-per-page="10"
             show-expand
             item-key="name"
-            hide-default-footer
             class="elevation-1"
-            @page-count="pageCount = $event"
             loading-text="Loading Your Delicious Recipes..."
           >
           <template v-slot:item.actions="{ item }">
             <v-icon small align="center" justify="center"
-              @click="addDay1(item)"
+              @click="addDayRecipe(day1Recipes, item)"
             >
               mdi-numeric-1-circle
             </v-icon>
             <v-icon small align="center" justify="center"
-              @click="addDay2(item)"
+              @click="addDayRecipe(day2Recipes, item)"
             >
               mdi-numeric-2-circle
             </v-icon>
             <v-icon small align="center" justify="center"
-              @click="addDay3(item)"
+              @click="addDayRecipe(day3Recipes, item)"
             >
               mdi-numeric-3-circle
             </v-icon>
             <v-icon small align="center" justify="center"
-              @click="addDay4(item)"
+              @click="addDayRecipe(day4Recipes, item)"
             >
               mdi-numeric-4-circle
             </v-icon>
             <v-icon small align="center" justify="center"
-              @click="addDay5(item)"
+              @click="addDayRecipe(day5Recipes, item)"
             >
               mdi-numeric-5-circle
             </v-icon>
             <v-icon small align="center" justify="center"
-              @click="addDay6(item)"
+              @click="addDayRecipe(day6Recipes, item)"
             >
               mdi-numeric-6-circle
             </v-icon>
             <v-icon small align="center" justify="center"
-              @click="addDay7(item)"
+              @click="addDayRecipe(day7Recipes, item)"
             >
               mdi-numeric-7-circle
             </v-icon>
@@ -79,12 +75,6 @@
           </v-data-table>
         </v-row>
     </v-col>
-    <div class="text-center pt-2">
-      <v-pagination
-        v-model="page"
-        :length="pageCount"
-      ></v-pagination>
-    </div>
   </v-col>
   <v-col class="pt-15">
     <v-row align="center" justify="center">
@@ -101,6 +91,18 @@
             @page-count="pageCount = $event"
             loading-text="Loading Your Delicious Recipes..."
     >
+    <template v-slot:item.actions="{ item }">
+            <v-icon small align="center" justify="center"
+              @click="removeRecipe(day1Recipes, item)"
+            >
+              mdi-minus-circle
+            </v-icon>
+    </template>
+    <template v-slot:expanded-item="{ headers, item }">
+            <td :colspan="headers.length">
+              {{ item.name }} Instructions: {{ item.instructions }}
+            </td>
+          </template>
     </v-data-table>
     <v-data-table align="center" justify="center"
             :headers="day2Headers"
@@ -115,6 +117,18 @@
             @page-count="pageCount = $event"
             loading-text="Loading Your Delicious Recipes..."
     >
+    <template v-slot:item.actions="{ item }">
+            <v-icon small align="center" justify="center"
+              @click="removeRecipe(day2Recipes, item)"
+            >
+              mdi-minus-circle
+            </v-icon>
+    </template>
+    <template v-slot:expanded-item="{ headers, item }">
+            <td :colspan="headers.length">
+              {{ item.name }} Instructions: {{ item.instructions }}
+            </td>
+          </template>
     </v-data-table>
     <v-data-table align="center" justify="center"
             :headers="day3Headers"
@@ -129,6 +143,18 @@
             @page-count="pageCount = $event"
             loading-text="Loading Your Delicious Recipes..."
     >
+    <template v-slot:item.actions="{ item }">
+            <v-icon small align="center" justify="center"
+              @click="removeRecipe(day3Recipes, item)"
+            >
+              mdi-minus-circle
+            </v-icon>
+    </template>
+    <template v-slot:expanded-item="{ headers, item }">
+            <td :colspan="headers.length">
+              {{ item.name }} Instructions: {{ item.instructions }}
+            </td>
+          </template>
     </v-data-table>
     <v-data-table align="center" justify="center"
             :headers="day4Headers"
@@ -143,6 +169,18 @@
             @page-count="pageCount = $event"
             loading-text="Loading Your Delicious Recipes..."
     >
+    <template v-slot:item.actions="{ item }">
+            <v-icon small align="center" justify="center"
+              @click="removeRecipe(day4Recipes, item)"
+            >
+              mdi-minus-circle
+            </v-icon>
+    </template>
+    <template v-slot:expanded-item="{ headers, item }">
+            <td :colspan="headers.length">
+              {{ item.name }} Instructions: {{ item.instructions }}
+            </td>
+          </template>
     </v-data-table>
     <v-data-table align="center" justify="center"
             :headers="day5Headers"
@@ -157,6 +195,18 @@
             @page-count="pageCount = $event"
             loading-text="Loading Your Delicious Recipes..."
     >
+    <template v-slot:item.actions="{ item }">
+            <v-icon small align="center" justify="center"
+              @click="removeRecipe(day5Recipes, item)"
+            >
+              mdi-minus-circle
+            </v-icon>
+    </template>
+    <template v-slot:expanded-item="{ headers, item }">
+            <td :colspan="headers.length">
+              {{ item.name }} Instructions: {{ item.instructions }}
+            </td>
+          </template>
     </v-data-table>
     <v-data-table align="center" justify="center"
             :headers="day6Headers"
@@ -171,6 +221,18 @@
             @page-count="pageCount = $event"
             loading-text="Loading Your Delicious Recipes..."
     >
+    <template v-slot:item.actions="{ item }">
+            <v-icon small align="center" justify="center"
+              @click="removeRecipe(day6Recipes, item)"
+            >
+              mdi-minus-circle
+            </v-icon>
+    </template>
+    <template v-slot:expanded-item="{ headers, item }">
+            <td :colspan="headers.length">
+              {{ item.name }} Instructions: {{ item.instructions }}
+            </td>
+          </template>
     </v-data-table>
     <v-data-table align="center" justify="center"
             :headers="day7Headers"
@@ -185,6 +247,18 @@
             @page-count="pageCount = $event"
             loading-text="Loading Your Delicious Recipes..."
     >
+    <template v-slot:item.actions="{ item }">
+            <v-icon small align="center" justify="center"
+              @click="removeRecipe(day7Recipes, item)"
+            >
+              mdi-minus-circle
+            </v-icon>
+    </template>
+    <template v-slot:expanded-item="{ headers, item }">
+            <td :colspan="headers.length">
+              {{ item.name }} Instructions: {{ item.instructions }}
+            </td>
+          </template>
     </v-data-table>
   </v-row>
   </v-col>
@@ -222,6 +296,10 @@ export default Vue.extend({
                   align: "start",
                   value: "name"
               },
+              {
+                  value: 'actions',
+                  sortable: false
+              }
             ],
             day2Headers: [
               {
@@ -229,6 +307,10 @@ export default Vue.extend({
                   align: "start",
                   value: "name"
               },
+              {
+                  value: 'actions',
+                  sortable: false
+              }
             ],
             day3Headers: [
               {
@@ -236,6 +318,10 @@ export default Vue.extend({
                   align: "start",
                   value: "name"
               },
+              {
+                  value: 'actions',
+                  sortable: false
+              }
             ],
             day4Headers: [
               {
@@ -243,6 +329,10 @@ export default Vue.extend({
                   align: "start",
                   value: "name"
               },
+              {
+                  value: 'actions',
+                  sortable: false
+              }
             ],
             day5Headers: [
               {
@@ -250,6 +340,10 @@ export default Vue.extend({
                   align: "start",
                   value: "name"
               },
+              {
+                  value: 'actions',
+                  sortable: false
+              }
             ],
             day6Headers: [
               {
@@ -257,6 +351,10 @@ export default Vue.extend({
                   align: "start",
                   value: "name"
               },
+              {
+                  value: 'actions',
+                  sortable: false
+              }
             ],
             day7Headers: [
               {
@@ -264,6 +362,10 @@ export default Vue.extend({
                   align: "start",
                   value: "name"
               },
+              {
+                  value: 'actions',
+                  sortable: false
+              }
             ],
             mealPlanRecipes: [],
             day1Recipes: [],
@@ -287,33 +389,16 @@ export default Vue.extend({
             // sets filters to display recipes
             return 0;
         },
-        addDay1() {
+        addDayRecipe(dayRecipes, recipe) {
           this.snackbar = true;
-          this.text = "Recipe Added To Day 1 Plan";
+          dayRecipes.push(recipe);
+          this.text = "Recipe Added To Day Plan";
         },
-        addDay2() {
-          this.snackbar = true;
-          this.text = "Recipe Added To Day 2 Plan";
-        },
-        addDay3() {
-          this.snackbar = true;
-          this.text = "Recipe Added To Day 3 Plan";
-        },
-        addDay4() {
-          this.snackbar = true;
-          this.text = "Recipe Added To Day 4 Plan";
-        },
-        addDay5() {
-          this.snackbar = true;
-          this.text = "Recipe Added To Day 5 Plan";
-        },
-        addDay6() {
-          this.snackbar = true;
-          this.text = "Recipe Added To Day 6 Plan";
-        },
-        addDay7() {
-          this.snackbar = true;
-          this.text = "Recipe Added To Day 7 Plan";
+        removeRecipe(dayRecipes, recipe) {
+          const index = dayRecipes.indexOf(recipe, 0);
+          if (index > -1) {
+            dayRecipes.splice(index, 1);
+          }
         },
         handleResponse(response: any) {
           return response.text().then((text: any) => {
@@ -328,7 +413,7 @@ export default Vue.extend({
             return data;
           });
         },
-        // Gets saved recipes
+        // Gets list of recipes
         getMealPlan() {
           const requestOptions = {
             method: "GET",
