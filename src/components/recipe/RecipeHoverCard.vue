@@ -21,7 +21,7 @@
 
         <v-fade-transition>
           <v-overlay v-if="hover" absolute color="#036358">
-            <v-btn>See more info</v-btn>
+            <v-btn @click="$router.push('recipe/' + recipe.id)">See more info</v-btn>
           </v-overlay>
         </v-fade-transition>
       </v-card>
