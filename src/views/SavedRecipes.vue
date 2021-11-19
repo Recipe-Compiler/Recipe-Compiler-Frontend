@@ -36,7 +36,14 @@
             @page-count="pageCount = $event"
             loading-text="Loading Your Delicious Recipes..."
           >
-            <template v-slot:item.actions="{ item }">
+          <template v-slot:item.viewrecipe="{ item }">
+            <v-icon small align="center" justify="center"
+              @click="goToRecipe(item)"
+            >
+              mdi-eye
+            </v-icon>
+          </template>
+          <template v-slot:item.actions="{ item }">
             <v-icon small align="center" justify="center"
               @click="unsaveRecipe(item)"
             >
@@ -45,7 +52,7 @@
           </template>
           <template v-slot:expanded-item="{ headers, item }">
             <td :colspan="headers.length">
-              {{ item.name }} Instructions: {{ item.instructions }}
+              More Info About {{ item.name }}: {{ item.description }}
             </td>
           </template>
           </v-data-table>
@@ -72,6 +79,7 @@
 <script lang="ts">
 import Vue from "vue";
 import { mapActions } from "vuex";
+import { Recipe } from "@/interfaces/recipe";
 export default Vue.extend({
     data() {
         return {
@@ -89,22 +97,12 @@ export default Vue.extend({
                   value: "name"
                 },
                 {
-                  text: "Description",
-                  align: "start",
-                  value: "description"
+                  text: "View",
+                  value: 'viewrecipe',
+                  sortable: false
                 },
                 {
-                  text: "Total Time",
-                  align: "start",
-                  value: "totalTimeMinutes"
-                },
-                {
-                  text: "Recipe ID",
-                  align: "start",
-                  value: "id"
-                },
-                {
-                  text: "Actions",
+                  text: "Unsave",
                   value: 'actions',
                   sortable: false
                 }
@@ -124,9 +122,16 @@ export default Vue.extend({
             // sets filters to display recipes
             return 0;
         },
-        unsaveRecipe(item) {
+        goToRecipe(recipe: Recipe) {
+            this.$router.push("/recipe/".concat(recipe.id));
+        },
+        unsaveRecipe(recipe: Recipe) {
           // removes recipe from user's saved list
           this.snackbar = true;
+          const index = this.savedRecipes.indexOf(recipe, 0);
+          if (index > -1) {
+            this.savedRecipes.splice(index, 1);
+          }
           this.text = "Recipe Unsaved";
         },
         handleResponse(response: any) {
@@ -148,6 +153,7 @@ export default Vue.extend({
             method: "GET",
             headers: { "Content-Type": "application/json" },
           };
+          // return fetch(process.env.VUE_APP_API + "/User/GetSavedRecipesByUsername/".concat(user), requestOptions)
           return fetch(process.env.VUE_APP_API + "Recipe/GetAll", requestOptions)
             .then(this.handleResponse)
             .then((recipes: any) => {
