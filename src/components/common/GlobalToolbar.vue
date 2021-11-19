@@ -64,7 +64,7 @@ export default Vue.extend({
         {
           icon: "mdi-food",
           text: "MealPlan",
-          route: "MealPlan",
+          route: "meal-plan",
         },
         {
           icon: "mdi-bookmark",
@@ -87,7 +87,7 @@ export default Vue.extend({
     },
 
     routeMealPlan(){
-      this.$router.push("MealPlan")
+      this.$router.push("Meal Planning")
     },
 
     routeSearch(dialog: any) {
