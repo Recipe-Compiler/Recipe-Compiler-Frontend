@@ -1,6 +1,6 @@
 <template>
-<ShoppingList></ShoppingList>
   <v-form>
+  <ShoppingList></ShoppingList>
     <v-col class="pt-15">
       <v-row align="center" justify="center">
         <h1>Meal Planning</h1>
