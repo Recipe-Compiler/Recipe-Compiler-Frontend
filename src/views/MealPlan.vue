@@ -22,6 +22,13 @@
             class="elevation-1"
             loading-text="Loading Your Delicious Recipes..."
           >
+            <template v-slot:[`item.viewrecipe`]="{ item }">
+              <v-icon small align="center" justify="center"
+                @click="goToRecipe(item)"
+              >
+                mdi-eye
+              </v-icon>
+            </template>
             <template v-slot:[`item.actions`]="{ item }">
               <v-icon
                 small
@@ -82,7 +89,7 @@
             </template>
             <template v-slot:expanded-item="{ headers, item }">
               <td :colspan="headers.length">
-                {{ item.name }} Instructions: {{ item.instructions }}
+                More Info About {{ item.name }}: {{ item.description }}
               </td>
             </template>
           </v-data-table>
@@ -106,6 +113,13 @@
           @page-count="pageCount = $event"
           loading-text="Loading Your Delicious Recipes..."
         >
+        <template v-slot:[`item.viewrecipe`]="{ item }">
+              <v-icon small align="center" justify="center"
+                @click="goToRecipe(item)"
+              >
+                mdi-eye
+              </v-icon>
+            </template>
           <template v-slot:[`item.actions`]="{ item }">
             <v-icon
               small
@@ -118,7 +132,7 @@
           </template>
           <template v-slot:expanded-item="{ headers, item }">
             <td :colspan="headers.length">
-              {{ item.name }} Instructions: {{ item.instructions }}
+              More Info About {{ item.name }}: {{ item.description }}
             </td>
           </template>
         </v-data-table>
@@ -137,6 +151,13 @@
           @page-count="pageCount = $event"
           loading-text="Loading Your Delicious Recipes..."
         >
+        <template v-slot:[`item.viewrecipe`]="{ item }">
+              <v-icon small align="center" justify="center"
+                @click="goToRecipe(item)"
+              >
+                mdi-eye
+              </v-icon>
+            </template>
           <template v-slot:[`item.actions`]="{ item }">
             <v-icon
               small
@@ -149,7 +170,7 @@
           </template>
           <template v-slot:expanded-item="{ headers, item }">
             <td :colspan="headers.length">
-              {{ item.name }} Instructions: {{ item.instructions }}
+              More Info About {{ item.name }}: {{ item.description }}
             </td>
           </template>
         </v-data-table>
@@ -168,6 +189,13 @@
           @page-count="pageCount = $event"
           loading-text="Loading Your Delicious Recipes..."
         >
+        <template v-slot:[`item.viewrecipe`]="{ item }">
+              <v-icon small align="center" justify="center"
+                @click="goToRecipe(item)"
+              >
+                mdi-eye
+              </v-icon>
+            </template>
           <template v-slot:[`item.actions`]="{ item }">
             <v-icon
               small
@@ -180,7 +208,7 @@
           </template>
           <template v-slot:expanded-item="{ headers, item }">
             <td :colspan="headers.length">
-              {{ item.name }} Instructions: {{ item.instructions }}
+              More Info About {{ item.name }}: {{ item.description }}
             </td>
           </template>
         </v-data-table>
@@ -199,6 +227,13 @@
           @page-count="pageCount = $event"
           loading-text="Loading Your Delicious Recipes..."
         >
+        <template v-slot:[`item.viewrecipe`]="{ item }">
+              <v-icon small align="center" justify="center"
+                @click="goToRecipe(item)"
+              >
+                mdi-eye
+              </v-icon>
+            </template>
           <template v-slot:[`item.actions`]="{ item }">
             <v-icon
               small
@@ -211,7 +246,7 @@
           </template>
           <template v-slot:expanded-item="{ headers, item }">
             <td :colspan="headers.length">
-              {{ item.name }} Instructions: {{ item.instructions }}
+              More Info About {{ item.name }}: {{ item.description }}
             </td>
           </template>
         </v-data-table>
@@ -230,6 +265,13 @@
           @page-count="pageCount = $event"
           loading-text="Loading Your Delicious Recipes..."
         >
+        <template v-slot:[`item.viewrecipe`]="{ item }">
+              <v-icon small align="center" justify="center"
+                @click="goToRecipe(item)"
+              >
+                mdi-eye
+              </v-icon>
+            </template>
           <template v-slot:[`item.actions`]="{ item }">
             <v-icon
               small
@@ -242,7 +284,7 @@
           </template>
           <template v-slot:expanded-item="{ headers, item }">
             <td :colspan="headers.length">
-              {{ item.name }} Instructions: {{ item.instructions }}
+              More Info About {{ item.name }}: {{ item.description }}
             </td>
           </template>
         </v-data-table>
@@ -261,6 +303,13 @@
           @page-count="pageCount = $event"
           loading-text="Loading Your Delicious Recipes..."
         >
+        <template v-slot:[`item.viewrecipe`]="{ item }">
+              <v-icon small align="center" justify="center"
+                @click="goToRecipe(item)"
+              >
+                mdi-eye
+              </v-icon>
+            </template>
           <template v-slot:[`item.actions`]="{ item }">
             <v-icon
               small
@@ -273,7 +322,7 @@
           </template>
           <template v-slot:expanded-item="{ headers, item }">
             <td :colspan="headers.length">
-              {{ item.name }} Instructions: {{ item.instructions }}
+              More Info About {{ item.name }}: {{ item.description }}
             </td>
           </template>
         </v-data-table>
@@ -292,6 +341,13 @@
           @page-count="pageCount = $event"
           loading-text="Loading Your Delicious Recipes..."
         >
+        <template v-slot:[`item.viewrecipe`]="{ item }">
+              <v-icon small align="center" justify="center"
+                @click="goToRecipe(item)"
+              >
+                mdi-eye
+              </v-icon>
+            </template>
           <template v-slot:[`item.actions`]="{ item }">
             <v-icon
               small
@@ -304,7 +360,7 @@
           </template>
           <template v-slot:expanded-item="{ headers, item }">
             <td :colspan="headers.length">
-              {{ item.name }} Instructions: {{ item.instructions }}
+              More Info About {{ item.name }}: {{ item.description }}
             </td>
           </template>
         </v-data-table>
@@ -333,6 +389,11 @@ export default Vue.extend({
           value: "name",
         },
         {
+          text: "View Recipe",
+          value: 'viewrecipe',
+          sortable: false
+        },
+        {
           text: "Select Day To Add To Plan",
           value: "actions",
           sortable: false,
@@ -343,6 +404,10 @@ export default Vue.extend({
           text: "Day 1 Recipes",
           align: "start",
           value: "name",
+        },
+        {
+          value: 'viewrecipe',
+          sortable: false
         },
         {
           value: "actions",
@@ -356,6 +421,10 @@ export default Vue.extend({
           value: "name",
         },
         {
+          value: 'viewrecipe',
+          sortable: false
+        },
+        {
           value: "actions",
           sortable: false,
         },
@@ -365,6 +434,10 @@ export default Vue.extend({
           text: "Day 3 Recipes",
           align: "start",
           value: "name",
+        },
+        {
+          value: 'viewrecipe',
+          sortable: false
         },
         {
           value: "actions",
@@ -378,6 +451,10 @@ export default Vue.extend({
           value: "name",
         },
         {
+          value: 'viewrecipe',
+          sortable: false
+        },
+        {
           value: "actions",
           sortable: false,
         },
@@ -387,6 +464,10 @@ export default Vue.extend({
           text: "Day 5 Recipes",
           align: "start",
           value: "name",
+        },
+        {
+          value: 'viewrecipe',
+          sortable: false
         },
         {
           value: "actions",
@@ -400,6 +481,10 @@ export default Vue.extend({
           value: "name",
         },
         {
+          value: 'viewrecipe',
+          sortable: false
+        },
+        {
           value: "actions",
           sortable: false,
         },
@@ -409,6 +494,10 @@ export default Vue.extend({
           text: "Day 7 Recipes",
           align: "start",
           value: "name",
+        },
+        {
+          value: 'viewrecipe',
+          sortable: false
         },
         {
           value: "actions",
@@ -433,6 +522,9 @@ export default Vue.extend({
     ...mapActions(['snackBar']),
     goHome() {
       this.$router.push("/");
+    },
+    goToRecipe(recipe: Recipe) {
+      this.$router.push("/recipe/".concat(recipe.id));
     },
     setFilters() {
       // sets filters to display recipes
