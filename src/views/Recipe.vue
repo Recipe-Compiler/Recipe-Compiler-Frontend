@@ -114,5 +114,10 @@ export default Vue.extend({
       //console.log(this.user);
     },
   },
+  watch: {
+    id() {
+      this.setRecipe(this.id);
+    },
+  },
 });
 </script>
