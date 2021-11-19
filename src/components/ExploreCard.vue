@@ -1,17 +1,18 @@
 <template>
   <v-form>
+     
     <v-hover v-slot="{ hover }">
       <v-card
         :loading="loading"
         class="mt-4 mb-4"
         max-width="400"
-        max-height="460"
+        max-height="700"
       >
         <template slot="progress">
           <v-progress-linear color="deep-purple" height="10" indeterminate>
           </v-progress-linear>
         </template>
-        <v-img height="250" src="item.imageUrl">
+        <v-img height="250" :src="recipe.imageUrl">
         
           <v-fade-transition>
             <v-overlay v-if="hover" absolute color="#036358">
@@ -35,10 +36,10 @@
           </v-row>
 
           <div class="my-4 text-subtitle-1">
-            {{ recipe.totalTimeMinutes }}
+            Recipe by: {{ recipe.author || "Unknown"  }}
           </div>
 
-          <div>{{ recipe.description }}</div>
+         <!--  <div>{{ recipe.description }}</div> -->
         </v-card-text>
 
         <v-divider class="mx-4"></v-divider>

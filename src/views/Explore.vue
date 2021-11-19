@@ -399,20 +399,30 @@
   </v-form>
 </template> -->
 <template>
-  <v-flex>
+  <v-form>      
       <v-col class="pt-15">
-      <v-row class="mt-4 mb-4">
-        
+      <v-row class="mt-4 mb-4 ml-4 mr-4">
+
+        <v-snackbar v-model="snackbar">
+            {{ text }}
+        <template v-slot:action="{ attrs }">
+        <v-btn color="blue" text v-bind="attrs" @click="snackbar = false">
+            Close
+        </v-btn>
+        </template>
+        </v-snackbar> 
+             
           <ExploreCard
             v-for="(recipe, i) in Recipes"
             :key="i"
             :recipe="recipe"
+            class="ma-4"
           >
           </ExploreCard>
         
       </v-row>
       </v-col>
-  </v-flex>
+  </v-form>
 </template>
 
 <script lang="ts">
