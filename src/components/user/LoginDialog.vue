@@ -55,6 +55,7 @@
 
 <script lang="ts">
 import Vue from "vue";
+import { mapActions } from "vuex";
 export default Vue.extend({
   data: () => ({
     dialog: false,
@@ -66,6 +67,7 @@ export default Vue.extend({
     },
   }),
   methods: {
+    ...mapActions(["snackBar"]),
     Login() {
       const requestOptions = {
         method: "POST",
@@ -81,11 +83,11 @@ export default Vue.extend({
           console.log(user);
           if (user.token) {
             console.log(user);
-            this.username = "";
-            this.password = "";
             localStorage.setItem("user", JSON.stringify(user));
-            this.dialog = false;
-            this.$router.go(0);
+            this.cleanup("Login successful");
+          } else {
+            this.snackBar(user.message);
+            this.password = "";
           }
         });
     },
@@ -101,6 +103,15 @@ export default Vue.extend({
         }
         return data;
       });
+    },
+    cleanup(snackbarMessage: string) {
+      this.username = "";
+      this.password = "";
+      this.dialog = false;
+      if (snackbarMessage) {
+        this.snackBar(snackbarMessage);
+      }
+      this.$router.go(0);
     },
   },
 });
