@@ -98,18 +98,32 @@ export default Vue.extend({
           sortable: false,
         },
       ],
-      savedRecipes: [],
-      user: null as any
+      savedRecipes: [] as any,
+      user: null as any,
     };
   },
   mounted() {
-    let user = JSON.parse(localStorage.user);
-    this.getSavedRecipes();
+    this.loadUser();
+    console.log(localStorage.user)
+    this.getSavedRecipes(JSON.parse(localStorage.user));
   },
   methods: {
     ...mapActions(["snackBar"]),
-    goHome() {
-      this.$router.push("/");
+    loadUser() {
+      if (localStorage.user != null) {
+        this.user = JSON.parse(localStorage.user);
+        this.getUserDetails(JSON.parse(localStorage.user).userId);
+      }
+    },
+    getUserDetails(userId: string) {
+      Service.get(
+        process.env.VUE_APP_API + "User/GetUserById/" + userId,
+        this.getUserDetailsCallback
+      );
+    },
+    getUserDetailsCallback(status: any, data: any) {
+      console.log(status);
+      this.user = data;
     },
     setFilters() {
       // sets filters to display recipes
@@ -119,7 +133,6 @@ export default Vue.extend({
       this.$router.push("/recipe/" + recipe.id);
     },
     unsaveRecipe(recipe: Recipe) {
-      console.log(localStorage.user);
       if (JSON.parse(localStorage.user) == null) {
         this.snackBar("Please login to unsave recipe");
         return;
@@ -140,19 +153,20 @@ export default Vue.extend({
       this.snackBar(data.message);
     },
     // Gets saved recipes
-    getSavedRecipes() {
-      if (this.user === null){
-        this.snackBar("Please login to view your saved recipes.")
+    getSavedRecipes(user: any) {
+      
+      if (user === null) {
+        this.snackBar("Please login to view your saved recipes.");
         return;
       }
-       Service.get(
-        process.env.VUE_APP_API + "User/GetSavedRecipesById/" + this.user.id,
+      Service.get(
+        process.env.VUE_APP_API + "User/GetSavedRecipesById/" + user.userId,
         this.getSavedRecipesCallback
       );
     },
-    getSavedRecipesCallback(status: any, data: Array<string>){
-        this.user.savedRecipes = data;
-    }
+    getSavedRecipesCallback(status: any, data: Array<string>) {
+      this.savedRecipes = data;
+    },
   },
 });
 </script>
