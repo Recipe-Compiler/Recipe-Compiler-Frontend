@@ -15,13 +15,15 @@
       </template>
       <v-card>
         <v-card-title>
-          <span class="text-h5">{{ user.message }} </span>
+          <span class="text-h5">Account Details: {{ user.username }} </span>
         </v-card-title>
         <v-card-text>
-          <v-container> hello world! </v-container>
-          <small>*indicates required field</small>
+          <v-container>{{ user }}</v-container>
         </v-card-text>
         <v-card-actions>
+          <v-col>
+            <v-btn @click="clear"> Logout </v-btn>
+          </v-col>
           <v-spacer></v-spacer>
           <v-btn color="primary darken-1" text @click="dialog = false">
             Close
@@ -33,6 +35,7 @@
 </template>
 <script lang="ts">
 import Vue from "vue";
+import Service from "@/service";
 export default Vue.extend({
   data() {
     return {
@@ -46,8 +49,23 @@ export default Vue.extend({
   methods: {
     loadUser() {
       if (localStorage.user != null) {
-        this.user = JSON.parse(localStorage.user);
+        //this.user = JSON.parse(localStorage.user);
+        this.getUserDetails(JSON.parse(localStorage.user).userId);
       }
+    },
+    getUserDetails(userId: string) {
+      Service.get(
+        process.env.VUE_APP_API + "User/GetUserById/" + userId,
+        this.getUserDetailsCallback
+      );
+    },
+    getUserDetailsCallback(status: any, data: any) {
+      console.log(status);
+      this.user = data;
+    },
+    clear() {
+      localStorage.user = null;
+      this.$router.go(0);
     },
   },
 });

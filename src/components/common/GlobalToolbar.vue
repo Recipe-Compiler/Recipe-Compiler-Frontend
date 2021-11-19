@@ -27,10 +27,7 @@
         </v-row>
       </div>
       <div v-else>
-        <v-row>
-          <v-col>
-            <v-btn @click="clear"> Logout </v-btn>
-          </v-col>
+        <v-row class="mb-1">
           <v-col>
             <UserInfoDialog />
           </v-col>
@@ -95,10 +92,6 @@ export default Vue.extend({
     routeSearch(dialog: any) {
       dialog.value = false;
       this.$router.push({ path: "/SearchResults" });
-    },
-    clear() {
-      localStorage.user = null;
-      this.$router.go(0);
     },
   },
   components: {
