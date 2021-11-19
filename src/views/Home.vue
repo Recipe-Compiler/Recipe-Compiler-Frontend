@@ -6,7 +6,9 @@
     </v-container>
 
     <v-col class="pt-6">
-      <h1 class="text-center mb-3 pb-3">Want to find out more?</h1>
+      <h1 class="text-center mb-3 pb-3">
+        Check out the mouthwatering details:
+      </h1>
       <v-row class="mt-4 mb-4">
         <RecipeHoverCard
           v-for="(recipe, i) in Recipes"

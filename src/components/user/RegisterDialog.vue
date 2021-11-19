@@ -55,6 +55,7 @@
 
 <script lang="ts">
 import Vue from "vue";
+import { mapActions } from "vuex";
 export default Vue.extend({
   data: () => ({
     dialog: false,
@@ -67,6 +68,7 @@ export default Vue.extend({
     },
   }),
   methods: {
+    ...mapActions(["snackBar"]),
     register() {
       const requestOptions = {
         method: "POST",
@@ -80,11 +82,12 @@ export default Vue.extend({
       return fetch(process.env.VUE_APP_API + "User/register", requestOptions)
         .then(this.handleResponse)
         .then((user: any) => {
-          if (user.token) {
-            this.username = "";
-            this.password = "";
-            this.email = "";
-            localStorage.setItem("user", JSON.stringify(user));
+          this.username = "";
+          this.password = "";
+          this.email = "";
+          this.snackBar(user.message);
+          if (user.success) {
+            this.dialog = false;
           }
         });
     },
