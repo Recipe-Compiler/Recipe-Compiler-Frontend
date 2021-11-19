@@ -24,6 +24,11 @@ const routes: Array<RouteConfig> = [
     component: () => import('../views/SearchResults.vue')
   },
   {
+    path: '/saved',
+    name: 'Saved Recipes',
+    component: () => import('../views/SavedRecipes.vue')
+  },
+  {
     path: '/Explore',
     name: 'Explore',
     component: () => import('../views/Explore.vue')
@@ -34,8 +39,8 @@ const routes: Array<RouteConfig> = [
     component: () => import('../views/Account.vue')
   },
   {
-    path: '/MealPlan',
-    name: 'MealPlan',
+    path: '/meal-plan',
+    name: 'Meal Planning',
     component: () => import('../views/MealPlan.vue')
   },
   {
