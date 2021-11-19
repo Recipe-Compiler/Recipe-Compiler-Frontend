@@ -1,22 +1,16 @@
 <template>
-  <v-container>
-    <v-row>
-      <v-col cols="4">
-        left
-      </v-col>
-      <v-col cols="4">
-        middle
-      </v-col>
-      <v-col cols="4"> right </v-col>
-    </v-row>
-  </v-container>
+<ShoppingList></ShoppingList>
+
 </template>
 
 <script lang="ts">
 import Vue from "vue";
 import { mapActions } from "vuex";
+import ShoppingList from "@/components/ShoppingList.vue"
 export default Vue.extend({
-
+  components: {
+    ShoppingList,
+  }
 });
 </script>
 
