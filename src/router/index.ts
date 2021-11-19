@@ -33,6 +33,12 @@ const routes: Array<RouteConfig> = [
     name: 'Account',
     component: () => import('../views/Account.vue')
   },
+  {
+    path: '/recipe/:id',
+    name: 'recipe',
+    component: () => import('../views/Recipe.vue'),
+    props: true
+  },
 ]
 
 const router = new VueRouter({
