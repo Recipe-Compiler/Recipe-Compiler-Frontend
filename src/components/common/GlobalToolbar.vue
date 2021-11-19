@@ -15,6 +15,7 @@
         </v-icon>
         {{ button.text }}
       </v-btn>
+      <RecipeSearch />
       <v-spacer></v-spacer>
       <div v-if="user === null">
         <v-row>
@@ -43,6 +44,7 @@ import Vue from "vue";
 import LoginDialog from "../user/LoginDialog.vue";
 import RegisterDialog from "../user/RegisterDialog.vue";
 import UserInfoDialog from "../user/AccountMenu.vue";
+import RecipeSearch from "../recipe/RecipeSearch.vue";
 //import Create from "../components/Create.vue";
 export default Vue.extend({
   data() {
@@ -58,11 +60,6 @@ export default Vue.extend({
           icon: "mdi-earth",
           text: "Explore",
           route: "explore",
-        },
-        {
-          icon: "mdi-magnify",
-          text: "Search",
-          route: "search",
         },
         {
           icon: "mdi-food",
@@ -98,6 +95,7 @@ export default Vue.extend({
     LoginDialog,
     RegisterDialog,
     UserInfoDialog,
+    RecipeSearch,
   },
 });
 </script>
