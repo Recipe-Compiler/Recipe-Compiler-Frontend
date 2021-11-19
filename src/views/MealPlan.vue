@@ -1,5 +1,6 @@
 <template>
   <v-form>
+  <ShoppingList></ShoppingList>
     <v-col class="pt-15">
       <v-row align="center" justify="center">
         <h1>Meal Planning</h1>
@@ -316,8 +317,12 @@
 <script lang="ts">
 import Vue from "vue";
 import { mapActions } from "vuex";
+import ShoppingList from "@/components/ShoppingList.vue"
 import { Recipe } from "@/interfaces/recipe";
 export default Vue.extend({
+  components: {
+    ShoppingList,
+  },
   data() {
 
     return {
