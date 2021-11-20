@@ -68,7 +68,6 @@ export default Vue.extend({
   },
   mounted() {
     this.setRecipe(this.id);
-    console.log(this.id);
   },
   methods: {
     ...mapActions(["snackBar"]),
@@ -82,14 +81,11 @@ export default Vue.extend({
       this.recipe = data;
     },
     saveRecipe() {
-      console.log(localStorage.user);
       if (JSON.parse(localStorage.user) == null) {
         this.snackBar("Please login to save recipe");
         return;
       }
       //this.getUser(JSON.parse(localStorage.user).userId);
-      console.log(Number(this.id));
-      console.log(JSON.parse(localStorage.user).userId);
       const payload = {
         userId: JSON.parse(localStorage.user).userId,
         recipeId: Number(this.id),
