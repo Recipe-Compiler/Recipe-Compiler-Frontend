@@ -1,7 +1,7 @@
 # recipe-compiler
 
 ## Deployed application
-###You may access the application hosted on Azure with [this url](https://victorious-island-0b09e7210.azurestaticapps.net/)
+You may access the application hosted on Azure with [this url](https://victorious-island-0b09e7210.azurestaticapps.net/)
 note: Sometimes the application will cold start if it has not been loaded recently, it maky take a few minutes for the application to fully load initially.
 
 
