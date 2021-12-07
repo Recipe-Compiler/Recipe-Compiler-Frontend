@@ -594,7 +594,7 @@ export default Vue.extend({
       }
       Service.get(
         process.env.VUE_APP_API + "User/GetSavedRecipesById/" + user.userId,
-        this.MealPlanRecipesCallback
+        this.getMealPlanRecipesCallback
       );
     },
     getMealPlanRecipesCallback(status: any, data: Array<string>) {
