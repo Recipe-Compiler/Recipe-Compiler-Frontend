@@ -1,25 +1,115 @@
 <template>
   <v-form>
-    <v-col class="pt-15">
-      <v-row align="center" justify="center">
-        <h1>Meal Planning</h1>
-      </v-row>
-      <v-row align="center" justify="center">
-        <v-col class="pt-15">
-          <v-row align="center" justify="center"> Schedule Your Meals </v-row>
-        </v-col>
-      </v-row>
-      <v-col class="pt-15">
+    <v-row>
+      <v-col class="pt-7">
         <v-row align="center" justify="center">
+          <h1>Meal Planning</h1>
+        </v-row>
+        <v-row align="center" justify="center">
+          <v-col class="pt-7">
+            <v-row align="center" justify="center"> Schedule Your Meals </v-row>
+          </v-col>
+        </v-row>
+        <v-col class="pt-7">
+          <v-row align="center" justify="center">
+            <v-data-table
+              align="center"
+              justify="center"
+              :headers="tableHeaders"
+              :items="mealPlanRecipes"
+              :items-per-page="10"
+              show-expand
+              item-key="name"
+              class="elevation-1"
+              loading-text="Loading Your Delicious Recipes..."
+            >
+              <template v-slot:[`item.viewrecipe`]="{ item }">
+                <v-icon small align="center" justify="center"
+                  @click="goToRecipe(item)"
+                >
+                  mdi-eye
+                </v-icon>
+              </template>
+              <template v-slot:[`item.actions`]="{ item }">
+                <v-icon
+                  small
+                  align="center"
+                  justify="center"
+                  @click="addDayRecipe(day1Recipes, item)"
+                >
+                  mdi-numeric-1-circle
+                </v-icon>
+                <v-icon
+                  small
+                  align="center"
+                  justify="center"
+                  @click="addDayRecipe(day2Recipes, item)"
+                >
+                  mdi-numeric-2-circle
+                </v-icon>
+                <v-icon
+                  small
+                  align="center"
+                  justify="center"
+                  @click="addDayRecipe(day3Recipes, item)"
+                >
+                  mdi-numeric-3-circle
+                </v-icon>
+                <v-icon
+                  small
+                  align="center"
+                  justify="center"
+                  @click="addDayRecipe(day4Recipes, item)"
+                >
+                  mdi-numeric-4-circle
+                </v-icon>
+                <v-icon
+                  small
+                  align="center"
+                  justify="center"
+                  @click="addDayRecipe(day5Recipes, item)"
+                >
+                  mdi-numeric-5-circle
+                </v-icon>
+                <v-icon
+                  small
+                  align="center"
+                  justify="center"
+                  @click="addDayRecipe(day6Recipes, item)"
+                >
+                  mdi-numeric-6-circle
+                </v-icon>
+                <v-icon
+                  small
+                  align="center"
+                  justify="center"
+                  @click="addDayRecipe(day7Recipes, item)"
+                >
+                  mdi-numeric-7-circle
+                </v-icon>
+              </template>
+              <template v-slot:expanded-item="{ headers, item }">
+                <td :colspan="headers.length">
+                  {{ item.name }} Instructions: {{ item.instructions }}
+                </td>
+              </template>
+            </v-data-table>
+          </v-row>
+        </v-col>
+        <v-row align="center" justify="center" class="mt-4 mb-4 ml-4 mr-4">
           <v-data-table
             align="center"
             justify="center"
-            :headers="tableHeaders"
-            :items="mealPlanRecipes"
-            :items-per-page="10"
+            :headers="day1Headers"
+            :items="day1Recipes"
+            :page.sync="page"
+            :items-per-page="itemsPerPage"
+            :search="search"
             show-expand
             item-key="name"
+            hide-default-footer
             class="elevation-1"
+            @page-count="pageCount = $event"
             loading-text="Loading Your Delicious Recipes..."
           >
             <template v-slot:[`item.viewrecipe`]="{ item }">
@@ -34,57 +124,237 @@
                 small
                 align="center"
                 justify="center"
-                @click="addDayRecipe(day1Recipes, item)"
+                @click="removeRecipe(day1Recipes, item)"
               >
-                mdi-numeric-1-circle
+                mdi-minus-circle
               </v-icon>
+            </template>
+            <template v-slot:expanded-item="{ headers, item }">
+              <td :colspan="headers.length">
+                {{ item.name }} Instructions: {{ item.instructions }}
+              </td>
+            </template>
+          </v-data-table>
+          <v-data-table
+            align="center"
+            justify="center"
+            :headers="day2Headers"
+            :items="day2Recipes"
+            :page.sync="page"
+            :items-per-page="itemsPerPage"
+            :search="search"
+            show-expand
+            item-key="name"
+            hide-default-footer
+            class="elevation-1"
+            @page-count="pageCount = $event"
+            loading-text="Loading Your Delicious Recipes..."
+          >
+            <template v-slot:[`item.viewrecipe`]="{ item }">
+              <v-icon small align="center" justify="center"
+                @click="goToRecipe(item)"
+              >
+                mdi-eye
+              </v-icon>
+            </template>
+            <template v-slot:[`item.actions`]="{ item }">
               <v-icon
                 small
                 align="center"
                 justify="center"
-                @click="addDayRecipe(day2Recipes, item)"
+                @click="removeRecipe(day2Recipes, item)"
               >
-                mdi-numeric-2-circle
+                mdi-minus-circle
               </v-icon>
+            </template>
+            <template v-slot:expanded-item="{ headers, item }">
+              <td :colspan="headers.length">
+                {{ item.name }} Instructions: {{ item.instructions }}
+              </td>
+            </template>
+          </v-data-table>
+          <v-data-table
+            align="center"
+            justify="center"
+            :headers="day3Headers"
+            :items="day3Recipes"
+            :page.sync="page"
+            :items-per-page="itemsPerPage"
+            :search="search"
+            show-expand
+            item-key="name"
+            hide-default-footer
+            class="elevation-1"
+            @page-count="pageCount = $event"
+            loading-text="Loading Your Delicious Recipes..."
+          >
+            <template v-slot:[`item.viewrecipe`]="{ item }">
+              <v-icon small align="center" justify="center"
+                @click="goToRecipe(item)"
+              >
+                mdi-eye
+              </v-icon>
+            </template>
+            <template v-slot:[`item.actions`]="{ item }">
               <v-icon
                 small
                 align="center"
                 justify="center"
-                @click="addDayRecipe(day3Recipes, item)"
+                @click="removeRecipe(day3Recipes, item)"
               >
-                mdi-numeric-3-circle
+                mdi-minus-circle
               </v-icon>
+            </template>
+            <template v-slot:expanded-item="{ headers, item }">
+              <td :colspan="headers.length">
+                {{ item.name }} Instructions: {{ item.instructions }}
+              </td>
+            </template>
+          </v-data-table>
+          <v-data-table
+            align="center"
+            justify="center"
+            :headers="day4Headers"
+            :items="day4Recipes"
+            :page.sync="page"
+            :items-per-page="itemsPerPage"
+            :search="search"
+            show-expand
+            item-key="name"
+            hide-default-footer
+            class="elevation-1"
+            @page-count="pageCount = $event"
+            loading-text="Loading Your Delicious Recipes..."
+          >
+            <template v-slot:[`item.viewrecipe`]="{ item }">
+              <v-icon small align="center" justify="center"
+                @click="goToRecipe(item)"
+              >
+                mdi-eye
+              </v-icon>
+            </template>
+            <template v-slot:[`item.actions`]="{ item }">
               <v-icon
                 small
                 align="center"
                 justify="center"
-                @click="addDayRecipe(day4Recipes, item)"
+                @click="removeRecipe(day4Recipes, item)"
               >
-                mdi-numeric-4-circle
+                mdi-minus-circle
               </v-icon>
+            </template>
+            <template v-slot:expanded-item="{ headers, item }">
+              <td :colspan="headers.length">
+                {{ item.name }} Instructions: {{ item.instructions }}
+              </td>
+            </template>
+          </v-data-table>
+          <v-data-table
+            align="center"
+            justify="center"
+            :headers="day5Headers"
+            :items="day5Recipes"
+            :page.sync="page"
+            :items-per-page="itemsPerPage"
+            :search="search"
+            show-expand
+            item-key="name"
+            hide-default-footer
+            class="elevation-1"
+            @page-count="pageCount = $event"
+            loading-text="Loading Your Delicious Recipes..."
+          >
+            <template v-slot:[`item.viewrecipe`]="{ item }">
+              <v-icon small align="center" justify="center"
+                @click="goToRecipe(item)"
+              >
+                mdi-eye
+              </v-icon>
+            </template>
+            <template v-slot:[`item.actions`]="{ item }">
               <v-icon
                 small
                 align="center"
                 justify="center"
-                @click="addDayRecipe(day5Recipes, item)"
+                @click="removeRecipe(day5Recipes, item)"
               >
-                mdi-numeric-5-circle
+                mdi-minus-circle
               </v-icon>
+            </template>
+            <template v-slot:expanded-item="{ headers, item }">
+              <td :colspan="headers.length">
+                {{ item.name }} Instructions: {{ item.instructions }}
+              </td>
+            </template>
+          </v-data-table>
+          <v-data-table
+            align="center"
+            justify="center"
+            :headers="day6Headers"
+            :items="day6Recipes"
+            :page.sync="page"
+            :items-per-page="itemsPerPage"
+            :search="search"
+            show-expand
+            item-key="name"
+            hide-default-footer
+            class="elevation-1"
+            @page-count="pageCount = $event"
+            loading-text="Loading Your Delicious Recipes..."
+          >
+            <template v-slot:[`item.viewrecipe`]="{ item }">
+              <v-icon small align="center" justify="center"
+                @click="goToRecipe(item)"
+              >
+                mdi-eye
+              </v-icon>
+            </template>
+            <template v-slot:[`item.actions`]="{ item }">
               <v-icon
                 small
                 align="center"
                 justify="center"
-                @click="addDayRecipe(day6Recipes, item)"
+                @click="removeRecipe(day6Recipes, item)"
               >
-                mdi-numeric-6-circle
+                mdi-minus-circle
               </v-icon>
+            </template>
+            <template v-slot:expanded-item="{ headers, item }">
+              <td :colspan="headers.length">
+                {{ item.name }} Instructions: {{ item.instructions }}
+              </td>
+            </template>
+          </v-data-table>
+          <v-data-table
+            align="center"
+            justify="center"
+            :headers="day7Headers"
+            :items="day7Recipes"
+            :page.sync="page"
+            :items-per-page="itemsPerPage"
+            :search="search"
+            show-expand
+            item-key="name"
+            hide-default-footer
+            class="elevation-1"
+            @page-count="pageCount = $event"
+            loading-text="Loading Your Delicious Recipes..."
+          >
+            <template v-slot:[`item.viewrecipe`]="{ item }">
+              <v-icon small align="center" justify="center"
+                @click="goToRecipe(item)"
+              >
+                mdi-eye
+              </v-icon>
+            </template>
+            <template v-slot:[`item.actions`]="{ item }">
               <v-icon
                 small
                 align="center"
                 justify="center"
-                @click="addDayRecipe(day7Recipes, item)"
+                @click="removeRecipe(day7Recipes, item)"
               >
-                mdi-numeric-7-circle
+                mdi-minus-circle
               </v-icon>
             </template>
             <template v-slot:expanded-item="{ headers, item }">
@@ -95,287 +365,32 @@
           </v-data-table>
         </v-row>
       </v-col>
-    </v-col>
-    <v-col class="mt-4 mb-4 ml-4 mr-4">
-      <v-row align="center" justify="center">
-        <v-data-table
-          align="center"
-          justify="center"
-          :headers="day1Headers"
-          :items="day1Recipes"
-          :page.sync="page"
-          :items-per-page="itemsPerPage"
-          :search="search"
-          show-expand
-          item-key="name"
-          hide-default-footer
-          class="elevation-1"
-          @page-count="pageCount = $event"
-          loading-text="Loading Your Delicious Recipes..."
-        >
-        <template v-slot:[`item.viewrecipe`]="{ item }">
-              <v-icon small align="center" justify="center"
-                @click="goToRecipe(item)"
-              >
-                mdi-eye
-              </v-icon>
-            </template>
-          <template v-slot:[`item.actions`]="{ item }">
-            <v-icon
-              small
-              align="center"
-              justify="center"
-              @click="removeRecipe(day1Recipes, item)"
-            >
-              mdi-minus-circle
-            </v-icon>
-          </template>
-          <template v-slot:expanded-item="{ headers, item }">
-            <td :colspan="headers.length">
-              More Info About {{ item.name }}: {{ item.description }}
-            </td>
-          </template>
-        </v-data-table>
-        <v-data-table
-          align="center"
-          justify="center"
-          :headers="day2Headers"
-          :items="day2Recipes"
-          :page.sync="page"
-          :items-per-page="itemsPerPage"
-          :search="search"
-          show-expand
-          item-key="name"
-          hide-default-footer
-          class="elevation-1"
-          @page-count="pageCount = $event"
-          loading-text="Loading Your Delicious Recipes..."
-        >
-        <template v-slot:[`item.viewrecipe`]="{ item }">
-              <v-icon small align="center" justify="center"
-                @click="goToRecipe(item)"
-              >
-                mdi-eye
-              </v-icon>
-            </template>
-          <template v-slot:[`item.actions`]="{ item }">
-            <v-icon
-              small
-              align="center"
-              justify="center"
-              @click="removeRecipe(day2Recipes, item)"
-            >
-              mdi-minus-circle
-            </v-icon>
-          </template>
-          <template v-slot:expanded-item="{ headers, item }">
-            <td :colspan="headers.length">
-              More Info About {{ item.name }}: {{ item.description }}
-            </td>
-          </template>
-        </v-data-table>
-        <v-data-table
-          align="center"
-          justify="center"
-          :headers="day3Headers"
-          :items="day3Recipes"
-          :page.sync="page"
-          :items-per-page="itemsPerPage"
-          :search="search"
-          show-expand
-          item-key="name"
-          hide-default-footer
-          class="elevation-1"
-          @page-count="pageCount = $event"
-          loading-text="Loading Your Delicious Recipes..."
-        >
-        <template v-slot:[`item.viewrecipe`]="{ item }">
-              <v-icon small align="center" justify="center"
-                @click="goToRecipe(item)"
-              >
-                mdi-eye
-              </v-icon>
-            </template>
-          <template v-slot:[`item.actions`]="{ item }">
-            <v-icon
-              small
-              align="center"
-              justify="center"
-              @click="removeRecipe(day3Recipes, item)"
-            >
-              mdi-minus-circle
-            </v-icon>
-          </template>
-          <template v-slot:expanded-item="{ headers, item }">
-            <td :colspan="headers.length">
-              More Info About {{ item.name }}: {{ item.description }}
-            </td>
-          </template>
-        </v-data-table>
-        <v-data-table
-          align="center"
-          justify="center"
-          :headers="day4Headers"
-          :items="day4Recipes"
-          :page.sync="page"
-          :items-per-page="itemsPerPage"
-          :search="search"
-          show-expand
-          item-key="name"
-          hide-default-footer
-          class="elevation-1"
-          @page-count="pageCount = $event"
-          loading-text="Loading Your Delicious Recipes..."
-        >
-        <template v-slot:[`item.viewrecipe`]="{ item }">
-              <v-icon small align="center" justify="center"
-                @click="goToRecipe(item)"
-              >
-                mdi-eye
-              </v-icon>
-            </template>
-          <template v-slot:[`item.actions`]="{ item }">
-            <v-icon
-              small
-              align="center"
-              justify="center"
-              @click="removeRecipe(day4Recipes, item)"
-            >
-              mdi-minus-circle
-            </v-icon>
-          </template>
-          <template v-slot:expanded-item="{ headers, item }">
-            <td :colspan="headers.length">
-              More Info About {{ item.name }}: {{ item.description }}
-            </td>
-          </template>
-        </v-data-table>
-        <v-data-table
-          align="center"
-          justify="center"
-          :headers="day5Headers"
-          :items="day5Recipes"
-          :page.sync="page"
-          :items-per-page="itemsPerPage"
-          :search="search"
-          show-expand
-          item-key="name"
-          hide-default-footer
-          class="elevation-1"
-          @page-count="pageCount = $event"
-          loading-text="Loading Your Delicious Recipes..."
-        >
-        <template v-slot:[`item.viewrecipe`]="{ item }">
-              <v-icon small align="center" justify="center"
-                @click="goToRecipe(item)"
-              >
-                mdi-eye
-              </v-icon>
-            </template>
-          <template v-slot:[`item.actions`]="{ item }">
-            <v-icon
-              small
-              align="center"
-              justify="center"
-              @click="removeRecipe(day5Recipes, item)"
-            >
-              mdi-minus-circle
-            </v-icon>
-          </template>
-          <template v-slot:expanded-item="{ headers, item }">
-            <td :colspan="headers.length">
-              More Info About {{ item.name }}: {{ item.description }}
-            </td>
-          </template>
-        </v-data-table>
-        <v-data-table
-          align="center"
-          justify="center"
-          :headers="day6Headers"
-          :items="day6Recipes"
-          :page.sync="page"
-          :items-per-page="itemsPerPage"
-          :search="search"
-          show-expand
-          item-key="name"
-          hide-default-footer
-          class="elevation-1"
-          @page-count="pageCount = $event"
-          loading-text="Loading Your Delicious Recipes..."
-        >
-        <template v-slot:[`item.viewrecipe`]="{ item }">
-              <v-icon small align="center" justify="center"
-                @click="goToRecipe(item)"
-              >
-                mdi-eye
-              </v-icon>
-            </template>
-          <template v-slot:[`item.actions`]="{ item }">
-            <v-icon
-              small
-              align="center"
-              justify="center"
-              @click="removeRecipe(day6Recipes, item)"
-            >
-              mdi-minus-circle
-            </v-icon>
-          </template>
-          <template v-slot:expanded-item="{ headers, item }">
-            <td :colspan="headers.length">
-              More Info About {{ item.name }}: {{ item.description }}
-            </td>
-          </template>
-        </v-data-table>
-        <v-data-table
-          align="center"
-          justify="center"
-          :headers="day7Headers"
-          :items="day7Recipes"
-          :page.sync="page"
-          :items-per-page="itemsPerPage"
-          :search="search"
-          show-expand
-          item-key="name"
-          hide-default-footer
-          class="elevation-1"
-          @page-count="pageCount = $event"
-          loading-text="Loading Your Delicious Recipes..."
-        >
-        <template v-slot:[`item.viewrecipe`]="{ item }">
-              <v-icon small align="center" justify="center"
-                @click="goToRecipe(item)"
-              >
-                mdi-eye
-              </v-icon>
-            </template>
-          <template v-slot:[`item.actions`]="{ item }">
-            <v-icon
-              small
-              align="center"
-              justify="center"
-              @click="removeRecipe(day7Recipes, item)"
-            >
-              mdi-minus-circle
-            </v-icon>
-          </template>
-          <template v-slot:expanded-item="{ headers, item }">
-            <td :colspan="headers.length">
-              More Info About {{ item.name }}: {{ item.description }}
-            </td>
-          </template>
-        </v-data-table>
-      </v-row>
-    </v-col>
+      <v-col class="mt-4 mb-4 ml-4 mr-4">
+        <v-row align="center" justify="center">
+          <h1>Grocery List</h1>
+        </v-row>
+        <v-row>
+          <v-col class="pt-7">
+            <v-row align="center" justify="center"> Schedule Your Meals </v-row>
+          </v-col>
+        </v-row>
+        <v-row><ShoppingList ></ShoppingList></v-row>
+      </v-col>
+    </v-row>
   </v-form>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
 import { mapActions } from "vuex";
+import ShoppingList from "@/components/ShoppingList.vue";
 import { Recipe } from "@/interfaces/recipe";
+import Service from "@/service";
 export default Vue.extend({
+  components: {
+    ShoppingList,
+  },
   data() {
-
     return {
       page: 1,
       pageCount: 0,
@@ -504,22 +519,40 @@ export default Vue.extend({
           sortable: false,
         },
       ],
-      mealPlanRecipes: [],
-      day1Recipes: [],
-      day2Recipes: [],
-      day3Recipes: [],
-      day4Recipes: [],
-      day5Recipes: [],
-      day6Recipes: [],
-      day7Recipes: [],
+      mealPlanRecipes: [] as any,
+      day1Recipes: [] as any,
+      day2Recipes: [] as any,
+      day3Recipes: [] as any,
+      day4Recipes: [] as any,
+      day5Recipes: [] as any,
+      day6Recipes: [] as any,
+      day7Recipes: [] as any,
+      user: null as any,
     };
   },
   mounted() {
-    let user = JSON.parse(localStorage.user);
-    this.getMealPlan();
+    this.loadUser();
+    console.log(localStorage.user)
+    this.getMealPlan(JSON.parse(localStorage.user));
   },
   methods: {
-    ...mapActions(['snackBar']),
+    ...mapActions(["snackBar"]),
+    loadUser() {
+      if (localStorage.user != null) {
+        this.user = JSON.parse(localStorage.user);
+        this.getUserDetails(JSON.parse(localStorage.user).userId);
+      }
+    },
+    getUserDetails(userId: string) {
+      Service.get(
+        process.env.VUE_APP_API + "User/GetUserById/" + userId,
+        this.getUserDetailsCallback
+      );
+    },
+    getUserDetailsCallback(status: any, data: any) {
+      console.log(status);
+      this.user = data;
+    },
     goHome() {
       this.$router.push("/");
     },
@@ -554,17 +587,18 @@ export default Vue.extend({
       });
     },
     // Gets list of recipes
-    getMealPlan() {
-      const requestOptions = {
-        method: "GET",
-        headers: { "Content-Type": "application/json" },
-      };
-      return fetch(process.env.VUE_APP_API + "Recipe/GetAll", requestOptions)
-        .then(this.handleResponse)
-        .then((recipes: any) => {
-          console.log(recipes);
-          this.mealPlanRecipes = recipes;
-        });
+    getMealPlan(user: any) {
+      if (user === null) {
+        this.snackBar("Please login to view your saved recipes.");
+        return;
+      }
+      Service.get(
+        process.env.VUE_APP_API + "User/GetSavedRecipesById/" + user.userId,
+        this.MealPlanRecipesCallback
+      );
+    },
+    getMealPlanRecipesCallback(status: any, data: Array<string>) {
+      this.mealPlanRecipes = data;
     },
   },
 });
