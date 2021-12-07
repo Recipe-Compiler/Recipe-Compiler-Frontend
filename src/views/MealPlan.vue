@@ -18,7 +18,6 @@
               :headers="tableHeaders"
               :items="mealPlanRecipes"
               :items-per-page="10"
-              show-expand
               item-key="name"
               class="elevation-1"
               loading-text="Loading Your Delicious Recipes..."
@@ -88,11 +87,6 @@
                   mdi-numeric-7-circle
                 </v-icon>
               </template>
-              <template v-slot:expanded-item="{ headers, item }">
-                <td :colspan="headers.length">
-                  {{ item.name }} Instructions: {{ item.instructions }}
-                </td>
-              </template>
             </v-data-table>
           </v-row>
         </v-col>
@@ -105,7 +99,6 @@
             :page.sync="page"
             :items-per-page="itemsPerPage"
             :search="search"
-            show-expand
             item-key="name"
             hide-default-footer
             class="elevation-1"
@@ -129,11 +122,6 @@
                 mdi-minus-circle
               </v-icon>
             </template>
-            <template v-slot:expanded-item="{ headers, item }">
-              <td :colspan="headers.length">
-                {{ item.name }} Instructions: {{ item.instructions }}
-              </td>
-            </template>
           </v-data-table>
           <v-data-table
             align="center"
@@ -143,7 +131,6 @@
             :page.sync="page"
             :items-per-page="itemsPerPage"
             :search="search"
-            show-expand
             item-key="name"
             hide-default-footer
             class="elevation-1"
@@ -167,11 +154,6 @@
                 mdi-minus-circle
               </v-icon>
             </template>
-            <template v-slot:expanded-item="{ headers, item }">
-              <td :colspan="headers.length">
-                {{ item.name }} Instructions: {{ item.instructions }}
-              </td>
-            </template>
           </v-data-table>
           <v-data-table
             align="center"
@@ -181,7 +163,6 @@
             :page.sync="page"
             :items-per-page="itemsPerPage"
             :search="search"
-            show-expand
             item-key="name"
             hide-default-footer
             class="elevation-1"
@@ -205,11 +186,6 @@
                 mdi-minus-circle
               </v-icon>
             </template>
-            <template v-slot:expanded-item="{ headers, item }">
-              <td :colspan="headers.length">
-                {{ item.name }} Instructions: {{ item.instructions }}
-              </td>
-            </template>
           </v-data-table>
           <v-data-table
             align="center"
@@ -219,7 +195,6 @@
             :page.sync="page"
             :items-per-page="itemsPerPage"
             :search="search"
-            show-expand
             item-key="name"
             hide-default-footer
             class="elevation-1"
@@ -243,11 +218,6 @@
                 mdi-minus-circle
               </v-icon>
             </template>
-            <template v-slot:expanded-item="{ headers, item }">
-              <td :colspan="headers.length">
-                {{ item.name }} Instructions: {{ item.instructions }}
-              </td>
-            </template>
           </v-data-table>
           <v-data-table
             align="center"
@@ -257,7 +227,6 @@
             :page.sync="page"
             :items-per-page="itemsPerPage"
             :search="search"
-            show-expand
             item-key="name"
             hide-default-footer
             class="elevation-1"
@@ -281,11 +250,6 @@
                 mdi-minus-circle
               </v-icon>
             </template>
-            <template v-slot:expanded-item="{ headers, item }">
-              <td :colspan="headers.length">
-                {{ item.name }} Instructions: {{ item.instructions }}
-              </td>
-            </template>
           </v-data-table>
           <v-data-table
             align="center"
@@ -295,7 +259,6 @@
             :page.sync="page"
             :items-per-page="itemsPerPage"
             :search="search"
-            show-expand
             item-key="name"
             hide-default-footer
             class="elevation-1"
@@ -319,11 +282,6 @@
                 mdi-minus-circle
               </v-icon>
             </template>
-            <template v-slot:expanded-item="{ headers, item }">
-              <td :colspan="headers.length">
-                {{ item.name }} Instructions: {{ item.instructions }}
-              </td>
-            </template>
           </v-data-table>
           <v-data-table
             align="center"
@@ -333,7 +291,6 @@
             :page.sync="page"
             :items-per-page="itemsPerPage"
             :search="search"
-            show-expand
             item-key="name"
             hide-default-footer
             class="elevation-1"
@@ -357,11 +314,6 @@
                 mdi-minus-circle
               </v-icon>
             </template>
-            <template v-slot:expanded-item="{ headers, item }">
-              <td :colspan="headers.length">
-                More Info About {{ item.name }}: {{ item.description }}
-              </td>
-            </template>
           </v-data-table>
         </v-row>
       </v-col>
@@ -371,7 +323,7 @@
         </v-row>
         <v-row>
           <v-col class="pt-7">
-            <v-row align="center" justify="center"> Schedule Your Meals </v-row>
+            <v-row align="center" justify="center"> Plan Your Ingredient List </v-row>
           </v-col>
         </v-row>
         <v-row><ShoppingList ></ShoppingList></v-row>
@@ -557,7 +509,7 @@ export default Vue.extend({
       this.$router.push("/");
     },
     goToRecipe(recipe: Recipe) {
-      this.$router.push("/recipe/".concat(recipe.id));
+      this.$router.push("/recipe/" + recipe.id);
     },
     setFilters() {
       // sets filters to display recipes
@@ -595,7 +547,7 @@ export default Vue.extend({
       Service.get(
         process.env.VUE_APP_API + "User/GetSavedRecipesById/" + user.userId,
         this.getMealPlanRecipesCallback
-      );
+      )
     },
     getMealPlanRecipesCallback(status: any, data: Array<string>) {
       this.mealPlanRecipes = data;
