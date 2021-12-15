@@ -59,17 +59,17 @@ export default Vue.extend({
         {
           icon: "mdi-earth",
           text: "Explore",
-          route: "explore",
+          route: "/explore",
         },
         {
           icon: "mdi-food",
           text: "MealPlan",
-          route: "meal-plan",
+          route: "/meal-plan",
         },
         {
           icon: "mdi-bookmark",
           text: "Saved",
-          route: "saved",
+          route: "/saved",
         },
       ],
     };
