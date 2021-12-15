@@ -59,17 +59,17 @@ export default Vue.extend({
         {
           icon: "mdi-earth",
           text: "Explore",
-          route: "explore",
+          route: "/explore",
         },
         {
           icon: "mdi-food",
           text: "MealPlan",
-          route: "meal-plan",
+          route: "/meal-plan",
         },
         {
           icon: "mdi-bookmark",
           text: "Saved",
-          route: "saved",
+          route: "/saved",
         },
       ],
     };
@@ -83,11 +83,15 @@ export default Vue.extend({
     },
 
     routeExplore() {
-      this.$router.push("Explore");
+      this.$router.push({ path: "/explore" });
     },
 
     routeMealPlan(){
-      this.$router.push("Meal Planning")
+      this.$router.push({ path: "/meal-plan" })
+    },
+
+    routeSaved(){
+      this.$router.push({ path: "/saved" })
     },
 
     routeSearch(dialog: any) {
