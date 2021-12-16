@@ -90,6 +90,7 @@
             </v-data-table>
           </v-row>
         </v-col>
+        <v-col align="center" justify="center">
         <v-row align="center" justify="center" class="mt-4 mb-4 ml-4 mr-4">
           <v-data-table
             align="center"
@@ -316,6 +317,7 @@
             </template>
           </v-data-table>
         </v-row>
+        </v-col>
       </v-col>
       <v-col class="mt-4 mb-4 ml-4 mr-4">
         <v-row align="center" justify="center">
