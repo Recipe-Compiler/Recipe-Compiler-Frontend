@@ -4,11 +4,6 @@
       <v-row align="center" justify="center">
         <h1>Saved Recipes</h1>
       </v-row>
-      <v-row align="center" justify="center">
-        <v-btn color="#fd6359" elevation="2" @click="setFilters">
-          Set Filters
-        </v-btn>
-      </v-row>
       <v-col class="pt-15">
         <v-row align="center" justify="center">
           <v-data-table
